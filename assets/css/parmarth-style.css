@@ -2,13 +2,20 @@
 
 .parmarth-style-header {
     position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
 }
 
-/* Top Info Bar with Icon-only Contact */
+/* Top Info Bar with Icon-only Contact - NO BACKGROUND, overlaid on image */
 .top-info-bar {
-    background: linear-gradient(135deg, #2c1810, #3d2417);
+    background: transparent;
     padding: 0.7rem 0;
-    border-bottom: 2px solid var(--primary-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 30;
 }
 
 .top-info-bar .container {
@@ -45,7 +52,7 @@
 .icon-contact::before {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 120%;
+    top: 120%;
     right: 0;
     background: var(--primary-color);
     color: white;
@@ -55,7 +62,7 @@
     font-size: 0.85rem;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(5px);
+    transform: translateY(-5px);
     transition: all 0.3s ease;
     pointer-events: none;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -65,10 +72,10 @@
 .icon-contact::after {
     content: '';
     position: absolute;
-    bottom: 105%;
+    top: 105%;
     right: 12px;
     border: 6px solid transparent;
-    border-top-color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -111,11 +118,13 @@
     transform: translateY(-2px);
 }
 
-/* Hero Carousel Section */
+/* Hero Carousel Section - fills entire header */
 .hero-carousel-section {
-    position: relative;
-    height: 500px;
-    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .carousel-container {
@@ -124,6 +133,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
 }
 
 .carousel-slides {
@@ -154,23 +164,24 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+    z-index: 2;
 }
 
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.15);
     color: white;
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 2px solid rgba(255,255,255,0.4);
     width: 50px;
     height: 50px;
     border-radius: 50%;
     font-size: 2rem;
     cursor: pointer;
     transition: all 0.3s;
-    z-index: 10;
+    z-index: 35;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -191,15 +202,14 @@
     right: 2rem;
 }
 
-/* Split Navigation with Central Logo */
+/* Split Navigation with Central Logo - directly below top bar */
 .split-nav-container {
     position: absolute;
-    bottom: 0;
+    top: 60px;
     left: 0;
     width: 100%;
-    background: linear-gradient(135deg, rgba(255, 79, 20, 0.95), rgba(247, 147, 30, 0.95));
-    backdrop-filter: blur(10px);
-    z-index: 20;
+    background: transparent;
+    z-index: 25;
 }
 
 .split-nav-container .container {
@@ -212,12 +222,12 @@
 /* Central Logo */
 .central-logo {
     position: relative;
-    padding: 1rem 2rem;
+    padding: 1.2rem 2.5rem;
     background: white;
-    border-radius: 10px 10px 0 0;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
-    z-index: 25;
-    cursor: help;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    z-index: 30;
+    cursor: default;
 }
 
 .central-logo img {
@@ -226,11 +236,11 @@
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
 }
 
-/* Tooltip for Logo (tagline on hover) */
+/* Tooltip for Logo (tagline on hover) - BELOW */
 .central-logo::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 120%;
+    top: 120%;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(44, 24, 16, 0.95);
@@ -251,11 +261,11 @@
 .central-logo::before {
     content: '';
     position: absolute;
-    bottom: 105%;
+    top: 105%;
     left: 50%;
     transform: translateX(-50%);
     border: 8px solid transparent;
-    border-top-color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -298,18 +308,25 @@
     color: white;
     text-decoration: none;
     padding: 1.2rem 1.5rem;
-    font-weight: 500;
-    font-size: 0.95rem;
-    letter-spacing: 0.3px;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
     transition: all 0.3s;
     border-radius: 4px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .nav-left a:hover,
-.nav-right a:hover,
+.nav-right a:hover {
+    background: var(--secondary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
 .nav-left a.active,
 .nav-right a.active {
-    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
 }
 
 .btn-donate-nav {
@@ -327,7 +344,7 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-/* Dropdown Menus */
+/* Dropdown Menus - VERTICAL like parmarth.org */
 .nav-left .dropdown,
 .nav-right .dropdown {
     position: relative;
@@ -339,16 +356,17 @@
     left: 0;
     background: white;
     list-style: none;
-    min-width: 200px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    border-radius: 8px;
+    min-width: 220px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    border-radius: 0;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s;
-    border-top: 3px solid var(--primary-color);
-    padding: 0.5rem 0;
+    padding: 0;
     z-index: 100;
+    display: flex;
+    flex-direction: column;
 }
 
 .dropdown:hover .dropdown-menu {
@@ -359,18 +377,27 @@
 
 .dropdown-menu li {
     margin: 0;
+    display: block;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.dropdown-menu li:last-child {
+    border-bottom: none;
 }
 
 .dropdown-menu a {
     color: var(--text-dark) !important;
-    padding: 0.9rem 1.5rem !important;
-    border-left: 3px solid transparent;
-    background: transparent !important;
+    padding: 1rem 1.5rem !important;
+    background: white !important;
+    display: block;
+    transition: all 0.3s;
+    text-shadow: none !important;
+    font-weight: 500 !important;
 }
 
 .dropdown-menu a:hover {
-    background: var(--light-bg) !important;
-    border-left-color: var(--primary-color);
+    background: linear-gradient(to right, var(--light-bg), white) !important;
+    color: var(--primary-color) !important;
     padding-left: 2rem !important;
 }
 
