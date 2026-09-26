@@ -66,6 +66,13 @@ header nav .container {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--text-light);
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    max-height: 50px;
+    height: auto;
 }
 
 .nav-menu {
@@ -133,7 +140,7 @@ header nav .container {
 /* Hero Section */
 .hero {
     background: linear-gradient(rgba(44, 24, 16, 0.7), rgba(44, 24, 16, 0.7)),
-                url('https://images.unsplash.com/photo-1604608672516-f1e3c89366f6?w=1200') center/cover;
+                url('../images/ashram-temple.jpg') center/cover;
     min-height: 60vh;
     display: flex;
     align-items: center;
