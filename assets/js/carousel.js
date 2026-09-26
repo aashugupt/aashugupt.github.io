@@ -1,0 +1,75 @@
+// Image Carousel Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    let currentSlide = 0;
+    let autoPlayInterval;
+
+    function showSlide(n) {
+        slides.forEach(slide => slide.classList.remove('active'));
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+    }
+
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+    }
+
+    // Event listeners for arrow buttons
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            nextSlide();
+            stopAutoPlay();
+            startAutoPlay(); // Restart autoplay after manual change
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            prevSlide();
+            stopAutoPlay();
+            startAutoPlay(); // Restart autoplay after manual change
+        });
+    }
+
+    // Start autoplay
+    if (slides.length > 0) {
+        startAutoPlay();
+    }
+
+    // Mobile menu toggle for split navigation
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navLeft = document.querySelector('.nav-left');
+    const navRight = document.querySelector('.nav-right');
+
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            if (navLeft) navLeft.classList.toggle('active');
+            if (navRight) navRight.classList.toggle('active');
+        });
+    }
+
+    // Dropdown toggle for mobile
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                this.classList.toggle('active');
+            }
+        });
+    });
+});
