@@ -271,6 +271,48 @@
         </div>
     </section>
 
+    <!-- Location Map Section -->
+    <section class="location-map" style="padding: 4rem 0; background: #f9f9f9;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ashram Location</h2>
+                <div class="title-underline"></div>
+                <p style="text-align: center; margin-top: 1rem; color: #666;">Bada Bhakt Maal, near Jain Mandir, Ramghat, New Colony, Ayodhya, UP - 224123</p>
+            </div>
+            <div style="margin-top: 2rem;">
+                <!-- Directions Button -->
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=Bada+Bhaktmal+Ashram+Ayodhya"
+                       target="_blank"
+                       style="display: inline-flex; align-items: center; gap: 0.75rem; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(255,79,20,0.3); transition: all 0.3s;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        Get Directions from Your Location
+                    </a>
+                    <p style="margin-top: 0.75rem; color: #666; font-size: 0.9rem;">Click above to open Google Maps with turn-by-turn directions</p>
+                </div>
+
+                <!-- Map Embed -->
+                <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); position: relative;">
+                    <iframe
+                        src="https://www.google.com/maps?q=Bada+Bhaktmal+Ashram+Ayodhya&hl=en&z=17&output=embed"
+                        width="100%"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <!-- Overlay hint for map interaction -->
+                    <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.95); padding: 0.5rem 1.5rem; border-radius: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-size: 0.85rem; color: #666; pointer-events: none;">
+                        📍 Click map to explore or zoom
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Timeline Section -->
     <section class="history-timeline">
         <div class="container">
