@@ -418,6 +418,32 @@
     padding-left: 2rem !important;
 }
 
+/* Nested Dropdown Menus */
+.dropdown-menu .dropdown {
+    position: relative;
+}
+
+.dropdown-menu .dropdown > a::after {
+    content: " ›";
+    float: right;
+    margin-left: 0.5rem;
+}
+
+.dropdown-menu .dropdown > .dropdown-menu {
+    left: 100%;
+    top: 0;
+    margin-left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px);
+}
+
+.dropdown-menu .dropdown:hover > .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
 /* Mobile Toggle */
 .mobile-toggle {
     display: none;
