@@ -230,7 +230,7 @@
 /* Central Logo */
 .central-logo {
     position: relative;
-    padding: 1rem 1.5rem;
+    padding: 0;
     background: transparent;
     border-radius: 20px;
     z-index: 30;
@@ -238,7 +238,7 @@
     transition: all 0.3s ease;
 }
 
-.central-logo:hover {
+.central-logo img:hover {
     transform: translateY(-5px) scale(1.02);
     filter: drop-shadow(0 15px 45px rgba(255, 79, 20, 0.5));
 }
@@ -309,12 +309,12 @@
 
 .nav-left ul {
     justify-content: flex-end;
-    padding-right: 1.5rem;
+    padding-right: 0.3rem;
 }
 
 .nav-right ul {
     justify-content: flex-start;
-    padding-left: 1.5rem;
+    padding-left: 0.3rem;
 }
 
 .nav-left a,
