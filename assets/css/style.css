@@ -234,7 +234,7 @@ body {
 /* Interior Pages Header (for pages other than index.html) */
 header:not(.parmarth-style-header) .top-bar {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    padding: 0.8rem 0;
+    padding: 0.5rem 0;
 }
 
 header:not(.parmarth-style-header) .top-bar .container {
@@ -282,15 +282,24 @@ header:not(.parmarth-style-header) .top-bar-center {
 
 header:not(.parmarth-style-header) .top-logo {
     display: block;
-    background: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    background: rgba(61, 36, 23, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 0.25rem 0.7rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+header:not(.parmarth-style-header) .top-logo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 18px rgba(255, 79, 20, 0.3);
 }
 
 header:not(.parmarth-style-header) .top-logo img {
-    height: 50px;
+    height: 72px;
     display: block;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
 }
 
 /* Right section - Contact & Social */
@@ -318,7 +327,7 @@ header:not(.parmarth-style-header) .contact-icon {
     background: rgba(255,255,255,0.15);
     color: white;
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     transition: all 0.3s;
 }
 
@@ -351,7 +360,7 @@ header:not(.parmarth-style-header) .social-icon {
     background: rgba(255,255,255,0.15);
     color: white;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: all 0.3s;
 }
 
