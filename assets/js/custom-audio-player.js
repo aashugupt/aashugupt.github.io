@@ -10,13 +10,15 @@
             title: "Sita Ram Sankirtan - Track 1",
             subtitle: "Divine Chant",
             file: "assets/audio/sitaram-track-1.mp3",
-            downloadName: "SitaRam-Sankirtan-Track-1.mp3"
+            downloadName: "SitaRam-Sankirtan-Track-1.mp3",
+            artwork: "assets/images/sitaram-track-1.jpg"
         },
         {
             title: "Sita Ram Sankirtan - Track 2",
             subtitle: "Divine Chant",
             file: "assets/audio/sitaram-track-2.mp3",
-            downloadName: "SitaRam-Sankirtan-Track-2.mp3"
+            downloadName: "SitaRam-Sankirtan-Track-2.mp3",
+            artwork: "assets/images/sitaram-track-2.jpg"
         }
     ];
 
@@ -24,7 +26,7 @@
     let audio, playPauseBtn, prevBtn, nextBtn;
     let progressBar, progressFill, currentTimeEl, durationEl;
     let volumeSlider, volumeIcon;
-    let trackNameEl, trackSubtitleEl, downloadLink;
+    let trackNameEl, trackSubtitleEl, downloadLink, albumArtEl;
     let isPlaying = false;
     let isSeeking = false;
 
@@ -49,6 +51,17 @@
         // Update track info display
         trackNameEl.textContent = track.title;
         trackSubtitleEl.textContent = track.subtitle;
+
+        // Update album artwork
+        if (track.artwork) {
+            albumArtEl.innerHTML = `<img src="${track.artwork}" alt="${track.title}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">`;
+        } else {
+            albumArtEl.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="white" style="width: 48px; height: 48px;">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+            `;
+        }
 
         // Update download link
         downloadLink.href = track.file;
@@ -163,23 +176,19 @@
         }
     }
 
-    // Previous track
+    // Previous track - always auto-play
     function previousTrack() {
         if (currentTrackIndex > 0) {
             loadTrack(currentTrackIndex - 1);
-            if (isPlaying) {
-                audio.play().catch(err => console.log('Play prevented:', err));
-            }
+            audio.play().catch(err => console.log('Play prevented:', err));
         }
     }
 
-    // Next track
+    // Next track - always auto-play
     function nextTrack() {
         if (currentTrackIndex < playlist.length - 1) {
             loadTrack(currentTrackIndex + 1);
-            if (isPlaying) {
-                audio.play().catch(err => console.log('Play prevented:', err));
-            }
+            audio.play().catch(err => console.log('Play prevented:', err));
         }
     }
 
@@ -213,6 +222,7 @@
         trackNameEl = document.getElementById('customTrackName');
         trackSubtitleEl = document.getElementById('customTrackSubtitle');
         downloadLink = document.getElementById('customDownloadLink');
+        albumArtEl = document.getElementById('albumArt');
 
         if (!audio || !playPauseBtn || !progressBar) {
             console.error('❌ Required player elements not found!');
