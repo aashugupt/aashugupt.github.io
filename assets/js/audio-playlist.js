@@ -53,34 +53,18 @@
         // Disable previous button if at first track
         if (currentTrackIndex === 0) {
             prevBtn.disabled = true;
-            prevBtn.style.opacity = '0.5';
-            prevBtn.style.cursor = 'not-allowed';
-            prevBtn.style.background = 'white';
-            prevBtn.style.color = '#FF4F14';
             console.log('Previous button DISABLED (first track)');
         } else {
             prevBtn.disabled = false;
-            prevBtn.style.opacity = '1';
-            prevBtn.style.cursor = 'pointer';
-            prevBtn.style.background = 'white';
-            prevBtn.style.color = '#FF4F14';
             console.log('Previous button enabled');
         }
 
         // Disable next button if at last track
         if (currentTrackIndex === playlist.length - 1) {
             nextBtn.disabled = true;
-            nextBtn.style.opacity = '0.5';
-            nextBtn.style.cursor = 'not-allowed';
-            nextBtn.style.background = 'white';
-            nextBtn.style.color = '#FF4F14';
             console.log('Next button DISABLED (last track)');
         } else {
             nextBtn.disabled = false;
-            nextBtn.style.opacity = '1';
-            nextBtn.style.cursor = 'pointer';
-            nextBtn.style.background = 'white';
-            nextBtn.style.color = '#FF4F14';
             console.log('Next button enabled');
         }
     }
