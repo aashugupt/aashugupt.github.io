@@ -288,10 +288,33 @@
                     <p style="color: #666; font-size: 0.95rem;">Experience the spiritual vibrations of Ram Naam</p>
                 </div>
 
+                <!-- Current Track Name -->
+                <div id="currentTrackName" style="text-align: center; margin-bottom: 1rem; padding: 0.75rem; background: linear-gradient(135deg, rgba(255,79,20,0.1), rgba(247,147,30,0.1)); border-radius: 8px;">
+                    <p style="margin: 0; color: var(--primary-color); font-weight: 600; font-size: 1.05rem;">
+                        🎧 Now Playing: <span id="trackTitle">Sita Ram Sankirtan - Track 1</span>
+                    </p>
+                </div>
+
                 <!-- Audio Player -->
                 <div style="background: linear-gradient(to right, #f9f9f9, #fff); padding: 1.5rem; border-radius: 12px; border: 2px solid rgba(255,79,20,0.1);">
-                    <audio id="ramNaamAudio" controls controlsList="nodownload" loop style="width: 100%; outline: none;">
-                        <source src="assets/audio/sitaram.mp3" type="audio/mpeg">
+                    <!-- Previous/Next Controls -->
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <button id="prevBtn" style="background: white; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem;" onmouseover="if(!this.disabled){this.style.background='var(--primary-color)'; this.style.color='white';}" onmouseout="if(!this.disabled){this.style.background='white'; this.style.color='var(--primary-color)';}">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                            </svg>
+                            Previous
+                        </button>
+                        <button id="nextBtn" style="background: white; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem;" onmouseover="if(!this.disabled){this.style.background='var(--primary-color)'; this.style.color='white';}" onmouseout="if(!this.disabled){this.style.background='white'; this.style.color='var(--primary-color)';}">
+                            Next
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <audio id="ramNaamAudio" controls loop style="width: 100%; outline: none;">
+                        <source id="audioSource" src="assets/audio/sitaram-track-1.mp3" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
                     <div id="audioPrompt" style="display: none; text-align: center; margin-top: 1rem; padding: 0.75rem; background: rgba(255,79,20,0.1); border-radius: 8px;">
@@ -303,7 +326,7 @@
 
                 <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee;">
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1rem;">
-                        <a href="assets/audio/sitaram.mp3" download="SitaRam-Sankirtan.mp3"
+                        <a id="downloadLink" href="assets/audio/sitaram-track-1.mp3" download="SitaRam-Sankirtan-Track-1.mp3"
                            style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.875rem 1.5rem; background: white; border: 2px solid var(--primary-color); color: var(--primary-color); text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s; font-size: 0.95rem;"
                            onmouseover="this.style.background='var(--primary-color)'; this.style.color='white';"
                            onmouseout="this.style.background='white'; this.style.color='var(--primary-color)';">
@@ -481,5 +504,6 @@
     <script src="assets/js/carousel.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/audio-autoplay.js"></script>
+    <script src="assets/js/audio-playlist.js"></script>
 </body>
 </html>

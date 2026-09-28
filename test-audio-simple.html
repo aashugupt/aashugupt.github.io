@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Audio Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; max-width: 800px; margin: 0 auto; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
+        #log { background: #f0f0f0; padding: 10px; margin-top: 20px; font-family: monospace; font-size: 12px; max-height: 300px; overflow-y: auto; }
+        .track-info { background: #ffe0d0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🎵 Simple Audio Player Test</h1>
+
+    <div class="track-info">
+        <strong>🎧 Now Playing:</strong> <span id="trackTitle">Loading...</span>
+    </div>
+
+    <div>
+        <button id="prevBtn">⏮️ Previous</button>
+        <button id="nextBtn">⏭️ Next</button>
+    </div>
+
+    <audio id="ramNaamAudio" controls style="width: 100%; margin: 20px 0;">
+        <source id="audioSource" src="assets/audio/sitaram-track-1.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+
+    <div>
+        <a id="downloadLink" href="assets/audio/sitaram-track-1.mp3" download="track1.mp3" style="display: inline-block; padding: 10px 20px; background: #FF4F14; color: white; text-decoration: none; border-radius: 5px;">
+            📥 Download Current Track
+        </a>
+    </div>
+
+    <div id="log"></div>
+
+    <script>
+        // Simple logging
+        function log(msg) {
+            const logDiv = document.getElementById('log');
+            const time = new Date().toLocaleTimeString();
+            logDiv.innerHTML = time + ': ' + msg + '<br>' + logDiv.innerHTML;
+            console.log(msg);
+        }
+
+        log('Page loaded');
+
+        // Playlist
+        const playlist = [
+            {
+                title: "Sita Ram Sankirtan - Track 1",
+                file: "assets/audio/sitaram-track-1.mp3",
+                downloadName: "SitaRam-Track-1.mp3"
+            },
+            {
+                title: "Sita Ram Sankirtan - Track 2",
+                file: "assets/audio/sitaram-track-2.mp3",
+                downloadName: "SitaRam-Track-2.mp3"
+            }
+        ];
+
+        let currentTrackIndex = 0;
+
+        // Get elements
+        const audio = document.getElementById('ramNaamAudio');
+        const audioSource = document.getElementById('audioSource');
+        const trackTitle = document.getElementById('trackTitle');
+        const downloadLink = document.getElementById('downloadLink');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        log('Elements found: audio=' + !!audio + ', source=' + !!audioSource + ', title=' + !!trackTitle);
+
+        // Load track function
+        function loadTrack(index) {
+            log('Loading track ' + (index + 1) + ' of ' + playlist.length);
+
+            const track = playlist[index];
+            currentTrackIndex = index;
+
+            // Update audio
+            audioSource.src = track.file;
+            audio.load();
+            log('Audio source set to: ' + track.file);
+
+            // Update title
+            trackTitle.textContent = track.title;
+
+            // Update download
+            downloadLink.href = track.file;
+            downloadLink.download = track.downloadName;
+
+            // Update buttons
+            updateButtons();
+        }
+
+        // Update button states
+        function updateButtons() {
+            // Previous button
+            if (currentTrackIndex === 0) {
+                prevBtn.disabled = true;
+                prevBtn.style.opacity = '0.5';
+                log('Previous button DISABLED (first track)');
+            } else {
+                prevBtn.disabled = false;
+                prevBtn.style.opacity = '1';
+                log('Previous button enabled');
+            }
+
+            // Next button
+            if (currentTrackIndex === playlist.length - 1) {
+                nextBtn.disabled = true;
+                nextBtn.style.opacity = '0.5';
+                log('Next button DISABLED (last track)');
+            } else {
+                nextBtn.disabled = false;
+                nextBtn.style.opacity = '1';
+                log('Next button enabled');
+            }
+        }
+
+        // Previous button
+        prevBtn.onclick = function() {
+            log('⏮️ Previous clicked');
+            if (currentTrackIndex > 0) {
+                loadTrack(currentTrackIndex - 1);
+                audio.play().catch(err => log('Play error: ' + err.message));
+            }
+        };
+
+        // Next button
+        nextBtn.onclick = function() {
+            log('⏭️ Next clicked');
+            if (currentTrackIndex < playlist.length - 1) {
+                loadTrack(currentTrackIndex + 1);
+                audio.play().catch(err => log('Play error: ' + err.message));
+            }
+        };
+
+        // Test audio loading
+        audio.addEventListener('loadstart', () => log('Audio loading started...'));
+        audio.addEventListener('loadeddata', () => log('✅ Audio data loaded'));
+        audio.addEventListener('canplay', () => log('✅ Audio can play'));
+        audio.addEventListener('error', (e) => log('❌ Audio error: ' + e.message));
+
+        // Initialize
+        log('Initializing with Track 1...');
+        loadTrack(0);
+
+        log('Setup complete! Try clicking the buttons.');
+    </script>
+</body>
+</html>
