@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <title>Search Results - Bada Bhaktmaal Ashram</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Shared Navigation -->
+    <header id="shared-header-nav">
+        <!-- Navigation loaded dynamically via JavaScript -->
+    </header>
+
+    <!-- Search Results Section -->
+    <section class="hero" style="min-height: 30vh; background: linear-gradient(rgba(44, 24, 16, 0.8), rgba(44, 24, 16, 0.8)), url('assets/images/ashram-temple.jpg') center/cover;">
+        <div class="hero-overlay">
+            <div class="container hero-content">
+                <h1>Search Results</h1>
+                <p id="search-query-display" style="margin-top: 1rem; font-size: 1.2rem;"></p>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 4rem 0; background: white;">
+        <div class="container">
+            <!-- Search Again Box -->
+            <div style="max-width: 800px; margin: 0 auto 3rem; text-align: center;">
+                <form id="search-again-form" style="display: flex; gap: 0.5rem; justify-content: center;">
+                    <input
+                        type="text"
+                        id="search-again-input"
+                        placeholder="Search again..."
+                        style="flex: 1; padding: 0.75rem 1rem; border: 2px solid var(--primary-color); border-radius: 8px; font-size: 1rem;"
+                    >
+                    <button
+                        type="submit"
+                        style="padding: 0.75rem 2rem; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;"
+                    >
+                        Search
+                    </button>
+                </form>
+            </div>
+
+            <!-- Google Search Results -->
+            <div id="search-results-container" style="max-width: 1200px; margin: 0 auto;">
+                <!-- Google search iframe will be injected here -->
+            </div>
+
+            <!-- Loading Message -->
+            <div id="loading-message" style="text-align: center; padding: 3rem; color: #666;">
+                <p>🔍 Loading results...</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About Ashram</h3>
+                    <p>Bada Bhaktmaal Ashram is a sacred spiritual institution dedicated to the preservation and propagation of Sanatan Dharma, Shri Ram Bhakti, and the timeless Bhaktamal tradition.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="guruji.html">Spiritual Guides</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <p>📍 Bada Bhakt Maal, near Jain Mandir<br>Ramghat, New Colony<br>Ayodhya, UP - 224123</p>
+                    <p>📞 +91 94614 00650</p>
+                    <p>✉️ care@badabhaktmaal.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Bada Bhaktmaal Ashram. All rights reserved. Ayodhya, Uttar Pradesh, India</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/shared-navigation.js"></script>
+    <script src="assets/js/search.js"></script>
+</body>
+</html>
