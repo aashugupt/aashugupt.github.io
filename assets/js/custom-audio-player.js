@@ -19,6 +19,55 @@
             file: "assets/audio/sitaram-track-2.mp3",
             downloadName: "SitaRam-Sankirtan-Track-2.mp3",
             artwork: "assets/images/sitaram-track-2.jpg"
+        },
+        {
+            title: "Sita Ram Sankirtan - Track 3",
+            subtitle: "Divine Chant",
+            file: "assets/audio/sitaram-track-3.mp3",
+            downloadName: "SitaRam-Sankirtan-Track-3.mp3",
+            artwork: "assets/images/sitaram-track-3.jpg"
+        },
+        {
+            title: "Sita Ram Sankirtan - Track 4",
+            subtitle: "Divine Chant",
+            file: "assets/audio/sitaram-track-4.mp3",
+            downloadName: "SitaRam-Sankirtan-Track-4.mp3",
+            artwork: "assets/images/sitaram-track-4.jpg"
+        },
+        {
+            title: "Sita Ram Sankirtan - Track 5",
+            subtitle: "Divine Chant",
+            file: "assets/audio/sitaram-track-5.mp3",
+            downloadName: "SitaRam-Sankirtan-Track-5.mp3",
+            artwork: "assets/images/sitaram-track-5.jpg"
+        },
+        {
+            title: "Sita Ram Sankirtan - Track 6",
+            subtitle: "Divine Chant",
+            file: "assets/audio/sitaram-track-6.mp3",
+            downloadName: "SitaRam-Sankirtan-Track-6.mp3",
+            artwork: "assets/images/sitaram-track-6.jpg"
+        },
+        {
+            title: "Sita Ram - 1008+ Times",
+            subtitle: "Extended Divine Chant",
+            file: "assets/audio/sitaram-1008+-times.mp3",
+            downloadName: "SitaRam-1008-Times.mp3",
+            artwork: "assets/images/sitaram-1008-times.jpg"
+        },
+        {
+            title: "Sita Ram Sankirtan - Track 8",
+            subtitle: "Divine Chant",
+            file: "assets/audio/sitaram-track-8.mp3",
+            downloadName: "SitaRam-Sankirtan-Track-8.mp3",
+            artwork: "assets/images/sitaram-track-8.jpg"
+        },
+        {
+            title: "Sita Ram Sankirtan - Track 9",
+            subtitle: "Divine Chant",
+            file: "assets/audio/sitaram-track-9.mp3",
+            downloadName: "SitaRam-Sankirtan-Track-9.mp3",
+            artwork: "assets/images/sitaram-track-9.jpg"
         }
     ];
 
