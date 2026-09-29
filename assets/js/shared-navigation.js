@@ -10,8 +10,8 @@
             <div class="container">
                 <div class="top-bar-left">
                     <div class="search-bar">
-                        <input type="text" placeholder="Search...">
-                        <button type="button">🔍</button>
+                        <input type="text" placeholder="Search..." id="site-search-input">
+                        <button type="button" id="site-search-button">🔍</button>
                     </div>
                 </div>
                 <div class="top-bar-center">
@@ -141,6 +141,50 @@
         if (headerPlaceholder) {
             headerPlaceholder.innerHTML = navigationHTML;
             console.log('✅ Shared internal navigation loaded');
+
+            // Initialize search functionality after navigation loads
+            setTimeout(initSearchFunctionality, 100);
         }
     });
+
+    // Search functionality
+    function initSearchFunctionality() {
+        const searchInput = document.getElementById('site-search-input');
+        const searchButton = document.getElementById('site-search-button');
+
+        if (!searchInput || !searchButton) {
+            console.log('⚠️ Search elements not found');
+            return;
+        }
+
+        console.log('✅ Search functionality initialized');
+
+        // Handle button click
+        searchButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            console.log('🔍 Search button clicked, query:', query);
+
+            if (query) {
+                window.location.href = 'search-results.html?q=' + encodeURIComponent(query);
+            } else {
+                alert('Please enter a search term');
+            }
+        });
+
+        // Handle Enter key
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+                console.log('🔍 Enter pressed, query:', query);
+
+                if (query) {
+                    window.location.href = 'search-results.html?q=' + encodeURIComponent(query);
+                } else {
+                    alert('Please enter a search term');
+                }
+            }
+        });
+    }
 })();
