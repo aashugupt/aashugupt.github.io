@@ -13,17 +13,17 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 15px rgba(255, 79, 20, 0.4);
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     z-index: 999;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(100px);
+    transform: translateY(100px) rotate(180deg) scale(0.5);
 }
 
 .scroll-to-top.show {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateY(0) rotate(0deg) scale(1);
 }
 
 .scroll-to-top:hover {
