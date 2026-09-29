@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="assets/css/parmarth-style.css">
     <link rel="stylesheet" href="assets/css/custom-audio-player.css">
     <link rel="stylesheet" href="assets/css/scroll-to-top.css">
+    <link rel="stylesheet" href="assets/css/service-cards.css">
+    <link rel="stylesheet" href="assets/css/aarti-expand.css">
 </head>
 <body>
     <!-- Header -->
@@ -136,7 +138,7 @@
                     </nav>
 
                     <!-- Central Logo -->
-                    <div class="central-logo" data-tooltip="An Abode Dedicated to Shri Ram Bhakti and Sanatan Dharma">
+                    <div class="central-logo" style="position: relative;">
                         <img src="assets/images/logo.png" alt="Bada Bhaktmaal Ashram">
                     </div>
 
@@ -162,9 +164,167 @@
                     <!-- Mobile Toggle -->
                     <div class="mobile-toggle">☰</div>
                 </div>
+
+                <!-- Services Quick Access Cards - Hover Overlay -->
+                <div class="services-quick-access-wrapper" style="position: relative;">
+                    <div class="services-quick-access">
+        <div class="services-container">
+            <div class="services-grid">
+                <!-- 1. Aarti & Prayer Timings (Expandable - Opens Modal) -->
+                <div class="service-card expandable" id="aartiCard">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" stroke="#D4AF37" stroke-width="1.5" fill="none"/><circle cx="12" cy="6" r="3" stroke="#D4AF37" stroke-width="1.5" fill="none"/><path d="M12 10v4M12 18v2" stroke="#D4AF37" stroke-width="1.5"/></svg></div>
+                    <h3>Aarti & Prayer Timings</h3>
+                    <p>Click to expand</p>
+                    <div class="aarti-expanded-content">
+                        <div class="aarti-time-slot">
+                            <span class="time-icon">🌅</span>
+                            <div class="time-details">
+                                <strong>Early Morning</strong>
+                                <span>4:00 - 4:30 AM</span>
+                            </div>
+                        </div>
+                        <div class="aarti-time-slot">
+                            <span class="time-icon">☀️</span>
+                            <div class="time-details">
+                                <strong>Morning Aarti</strong>
+                                <span>9:00 - 9:30 AM</span>
+                            </div>
+                        </div>
+                        <div class="aarti-time-slot">
+                            <span class="time-icon">🌤️</span>
+                            <div class="time-details">
+                                <strong>Afternoon</strong>
+                                <span>12:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="aarti-time-slot">
+                            <span class="time-icon">🌇</span>
+                            <div class="time-details">
+                                <strong>Evening Aarti</strong>
+                                <span>4:00 - 4:30 PM</span>
+                            </div>
+                        </div>
+                        <div class="aarti-time-slot">
+                            <span class="time-icon">🌙</span>
+                            <div class="time-details">
+                                <strong>Before Sleep</strong>
+                                <span>8:00 - 8:15 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Satsang (Navigate) -->
+                <a href="satsang.html" class="service-card" style="text-decoration: none;">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="#D4AF37" stroke-width="1.5" fill="none"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" stroke="#D4AF37" stroke-width="1.5" fill="none"/><circle cx="18" cy="7" r="2" stroke="#D4AF37" stroke-width="1.5" fill="none"/><circle cx="6" cy="7" r="2" stroke="#D4AF37" stroke-width="1.5" fill="none"/></svg></div>
+                    <h3>Satsang</h3>
+                    <p>Spiritual gatherings</p>
+                </a>
+
+                <!-- 3. Annadan (Navigate) -->
+                <a href="bhandara.html" class="service-card" style="text-decoration: none;">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M8.5 8.5h7v7h-7z" stroke="#D4AF37" stroke-width="1.5" fill="none"/><path d="M12 5v3M12 16v3M5 12h3M16 12h3" stroke="#D4AF37" stroke-width="1.5"/><circle cx="12" cy="12" r="9" stroke="#D4AF37" stroke-width="1.5" fill="none"/></svg></div>
+                    <h3>Annadan</h3>
+                    <p>Free meals</p>
+                </a>
+
+                <!-- 4. Feed/Donate Cow (Navigate) -->
+                <a href="gaushala.html" class="service-card" style="text-decoration: none;">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="13" rx="6" ry="4" stroke="#D4AF37" stroke-width="1.5" fill="none"/><path d="M6 13v5M18 13v5M12 9v4M8 6h8" stroke="#D4AF37" stroke-width="1.5"/><circle cx="10" cy="10" r="1" fill="#D4AF37"/><circle cx="14" cy="10" r="1" fill="#D4AF37"/></svg></div>
+                    <h3>Feed/Donate Cow</h3>
+                    <p>Gau Seva</p>
+                </a>
+
+                <!-- 5. Vivah Sanskara (Navigate) -->
+                <a href="vivah-sanskara.html" class="service-card" style="text-decoration: none;">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" stroke="#D4AF37" stroke-width="1.5" fill="none"/><path d="M12 6v12M6 12h12M8 8l8 8M16 8l-8 8" stroke="#D4AF37" stroke-width="1.5"/></svg></div>
+                    <h3>Vivah Sanskara</h3>
+                    <p>Sacred ceremonies</p>
+                </a>
+
+                <!-- 6. Accommodation (Navigate) -->
+                <a href="accommodation.html" class="service-card" style="text-decoration: none;">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V10l7-6 7 6v10" stroke="#D4AF37" stroke-width="1.5" fill="none"/><rect x="9" y="14" width="6" height="6" stroke="#D4AF37" stroke-width="1.5" fill="none"/></svg></div>
+                    <h3>Accommodation</h3>
+                    <p>Stay with us</p>
+                </a>
+
+                <!-- 7. Transportation (Navigate) -->
+                <a href="visiting.html" class="service-card" style="text-decoration: none;">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="10" rx="2" stroke="#D4AF37" stroke-width="1.5" fill="none"/><circle cx="8" cy="18" r="2" stroke="#D4AF37" stroke-width="1.5" fill="none"/><circle cx="16" cy="18" r="2" stroke="#D4AF37" stroke-width="1.5" fill="none"/><path d="M4 11h16M7 8V6h10v2" stroke="#D4AF37" stroke-width="1.5"/></svg></div>
+                    <h3>Transportation</h3>
+                    <p>How to reach</p>
+                </a>
+
+                <!-- 8. Mandir Manners (Navigate) -->
+                <a href="mandir-manners.html" class="service-card" style="text-decoration: none;">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 3l-9 7h2v9h5v-5h4v5h5v-9h2z" stroke="#D4AF37" stroke-width="1.5" fill="none"/><path d="M12 3v5" stroke="#D4AF37" stroke-width="1.5"/></svg></div>
+                    <h3>Mandir Manners</h3>
+                    <p>Temple etiquette</p>
+                </a>
+
+                <!-- 9. Multimedia E-guide (Navigate) -->
+                <a href="multimedia-guide.html" class="service-card" style="text-decoration: none;">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2" stroke="#D4AF37" stroke-width="1.5" fill="none"/><path d="M9 8h6M9 12h6M9 16h4" stroke="#D4AF37" stroke-width="1.5"/></svg></div>
+                    <h3>Multimedia E-Guide</h3>
+                    <p>Digital resources</p>
+                </a>
+
+                <!-- 10. Wallpapers (Navigate) -->
+                <a href="wallpapers.html" class="service-card" style="text-decoration: none;">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#D4AF37" stroke-width="1.5" fill="none"/><circle cx="8.5" cy="8.5" r="1.5" fill="#D4AF37"/><path d="M3 15l5-5 4 4 5-7 4 4v5" stroke="#D4AF37" stroke-width="1.5" fill="none"/></svg></div>
+                    <h3>Wallpapers</h3>
+                    <p>Download for mobile</p>
+                </a>
+
+                <!-- 11. FAQs (Navigate) -->
+                <a href="faqs.html" class="service-card" style="text-decoration: none;">
+                    <div class="service-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="#D4AF37" stroke-width="1.5" fill="none"/><path d="M12 17v0M12 13.5c0-1.5 2-1.5 2-3 0-1-1-2-2-2s-2 1-2 2" stroke="#D4AF37" stroke-width="1.5"/></svg></div>
+                    <h3>FAQs</h3>
+                    <p>Common questions</p>
+                </a>
+            </div>
+        </div>
+    </div>
+                </div>
             </div>
         </div>
     </header>
+
+                <div class="aarti-time">
+                    <div class="time-icon">☀️</div>
+                    <div class="aarti-time-info">
+                        <h4>Morning Aarti</h4>
+                        <p>9:00 AM - 9:30 AM</p>
+                    </div>
+                </div>
+
+                <div class="aarti-time">
+                    <div class="time-icon">🌤️</div>
+                    <div class="aarti-time-info">
+                        <h4>Afternoon Aarti</h4>
+                        <p>12:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="aarti-time">
+                    <div class="time-icon">🌇</div>
+                    <div class="aarti-time-info">
+                        <h4>Evening Aarti</h4>
+                        <p>4:00 PM - 4:30 PM</p>
+                    </div>
+                </div>
+
+                <div class="aarti-time">
+                    <div class="time-icon">🌙</div>
+                    <div class="aarti-time-info">
+                        <h4>Before Sleep Aarti</h4>
+                        <p>8:00 PM - 8:15 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" style="background: linear-gradient(to bottom, rgba(44, 24, 16, 0.4), rgba(44, 24, 16, 0.8)), url('assets/images/hero-image.jpeg') center/cover; background-attachment: fixed;">
@@ -286,7 +446,7 @@
                 <!-- Left: Album Art & Track Info -->
                 <div class="player-left">
                     <div class="album-art" id="albumArt">
-                        <svg viewBox="0 0 24 24" fill="white" style="width: 48px; height: 48px;">
+                        <svg viewBox="0 0 24 24" fill="#D4AF37" style="width: 48px; height: 48px;">
                             <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
                         </svg>
                     </div>
@@ -306,7 +466,7 @@
                         </button>
 
                         <button id="playPauseBtn" class="control-button play-pause-btn" title="Play/Pause">
-                            <svg viewBox="0 0 24 24" fill="white">
+                            <svg viewBox="0 0 24 24" fill="#D4AF37">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </button>
@@ -516,7 +676,7 @@
 
     <!-- Scroll to Top Button -->
     <button id="scrollToTopBtn" class="scroll-to-top" title="Back to Top" aria-label="Scroll to top">
-        <svg viewBox="0 0 24 24" fill="white">
+        <svg viewBox="0 0 24 24" fill="#D4AF37">
             <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
         </svg>
     </button>
@@ -525,6 +685,7 @@
     <script src="assets/js/script.js"></script>
     <script src="assets/js/custom-audio-player.js"></script>
     <script src="assets/js/scroll-to-top.js"></script>
+    <script src="assets/js/service-cards.js"></script>
 
     <!-- Register Service Worker for Audio Caching -->
     <script>

@@ -1,0 +1,78 @@
+/* Expanding Card - Spans Multiple Rows in Same Column */
+
+/* Hide expanded content by default */
+.aarti-expanded-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s ease;
+    margin-top: 0;
+}
+
+/* Expand on hover OR when clicked (locked) */
+#aartiCard:hover,
+#aartiCard.locked-expanded {
+    grid-row: span 2;
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #FFD700;
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.7);
+}
+
+#aartiCard:hover .aarti-expanded-content,
+#aartiCard.locked-expanded .aarti-expanded-content {
+    max-height: 400px;
+    opacity: 1;
+    margin-top: 1rem;
+}
+
+/* Time slot styling */
+.aarti-time-slot {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.6rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.aarti-time-slot:last-child {
+    margin-bottom: 0;
+}
+
+.aarti-time-slot:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #FFD700;
+    transform: translateX(3px);
+}
+
+.aarti-time-slot .time-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.aarti-time-slot .time-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    flex: 1;
+    text-align: left;
+}
+
+.aarti-time-slot .time-details strong {
+    font-size: 0.75rem;
+    color: white;
+    font-weight: 600;
+}
+
+.aarti-time-slot .time-details span {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Ensure other cards remain unchanged */
+.service-card:not(#aartiCard) {
+    /* No changes to other cards */
+}
