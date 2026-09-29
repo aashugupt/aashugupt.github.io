@@ -516,5 +516,14 @@
     <script src="assets/js/carousel.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/custom-audio-player.js"></script>
+
+    <!-- Register Service Worker for Audio Caching -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/assets/js/sw.js', { scope: '/' })
+                .then(reg => console.log('✅ Service Worker registered for audio caching'))
+                .catch(err => console.log('❌ Service Worker registration failed:', err));
+        }
+    </script>
 </body>
 </html>

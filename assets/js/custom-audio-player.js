@@ -79,6 +79,13 @@
     let isPlaying = false;
     let isSeeking = false;
 
+    // LocalStorage keys
+    const STORAGE_KEYS = {
+        TRACK: 'sitaram_last_track',
+        VOLUME: 'sitaram_volume',
+        POSITION: 'sitaram_track_position'
+    };
+
     // Format time (seconds to MM:SS)
     function formatTime(seconds) {
         if (isNaN(seconds)) return '0:00';
@@ -87,8 +94,15 @@
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     }
 
+    // Save current state to localStorage
+    function saveState() {
+        localStorage.setItem(STORAGE_KEYS.TRACK, currentTrackIndex);
+        localStorage.setItem(STORAGE_KEYS.VOLUME, volumeSlider.value);
+        localStorage.setItem(STORAGE_KEYS.POSITION, audio.currentTime);
+    }
+
     // Load a track
-    function loadTrack(index) {
+    function loadTrack(index, restorePosition = false) {
         if (index < 0 || index >= playlist.length) return;
 
         currentTrackIndex = index;
@@ -116,8 +130,22 @@
         downloadLink.href = track.file;
         downloadLink.download = track.downloadName;
 
+        // Restore playback position if requested
+        if (restorePosition) {
+            const savedPosition = parseFloat(localStorage.getItem(STORAGE_KEYS.POSITION) || 0);
+            if (savedPosition > 0) {
+                audio.addEventListener('loadedmetadata', function restorePos() {
+                    audio.currentTime = Math.min(savedPosition, audio.duration - 1);
+                    audio.removeEventListener('loadedmetadata', restorePos);
+                }, { once: true });
+            }
+        }
+
         // Update button states
         updateButtonStates();
+
+        // Save state
+        saveState();
 
         console.log('Loaded track:', track.title);
     }
@@ -174,6 +202,8 @@
     function updateVolume() {
         audio.volume = volumeSlider.value / 100;
         updateVolumeIcon();
+        // Save volume to localStorage
+        localStorage.setItem(STORAGE_KEYS.VOLUME, volumeSlider.value);
     }
 
     // Update volume icon based on level (6 distinct levels)
@@ -341,14 +371,27 @@
         volumeSlider.addEventListener('input', updateVolume);
         volumeIcon.addEventListener('click', toggleMute);
 
-        // Initialize volume
-        audio.volume = 0.7;
-        volumeSlider.value = 70;
+        // Load saved volume or use default
+        const savedVolume = localStorage.getItem(STORAGE_KEYS.VOLUME);
+        const volumeValue = savedVolume !== null ? parseInt(savedVolume) : 70;
+        audio.volume = volumeValue / 100;
+        volumeSlider.value = volumeValue;
         updateVolumeIcon();
+        console.log('✅ Restored volume:', volumeValue + '%');
 
-        // Load first track
-        loadTrack(0);
+        // Load saved track or default to first track
+        const savedTrackIndex = localStorage.getItem(STORAGE_KEYS.TRACK);
+        const trackIndex = savedTrackIndex !== null ? parseInt(savedTrackIndex) : 0;
+        loadTrack(trackIndex, true); // true = restore playback position
         updatePlayPauseIcon();
+        console.log('✅ Restored track:', trackIndex + 1);
+
+        // Save state periodically while playing
+        setInterval(() => {
+            if (!audio.paused) {
+                saveState();
+            }
+        }, 5000); // Save every 5 seconds
 
         console.log('✅ Custom audio player initialized with 6 volume levels');
 
