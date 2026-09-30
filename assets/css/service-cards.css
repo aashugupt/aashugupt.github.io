@@ -336,7 +336,7 @@
         bottom: 0;
         left: 0;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         padding: 0;
         background: rgba(44, 24, 16, 0.93);
         backdrop-filter: blur(10px);
@@ -351,10 +351,20 @@
         transform: none;
     }
 
+    /* Auto margins rather than align-items: center on the panel. Both centre
+       the cards while they fit, but a centred flex item taller than its
+       container overflows equally past both edges -- and a scroll container
+       only ever scrolls toward its end edge, so whatever sits above the top
+       becomes unreachable. That is what clipped the icon off the expanded
+       Aarti card in landscape. Auto margins resolve to zero once the free
+       space is gone, dropping the cards back to the top edge where the
+       overflow is scrollable. */
     .services-container {
         width: 100%;
         max-width: none;
         padding: 3.5rem 0.9rem 1.5rem;
+        margin-top: auto;
+        margin-bottom: auto;
     }
 
     .services-grid {
