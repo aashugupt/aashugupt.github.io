@@ -145,11 +145,50 @@
             // Initialize search functionality after navigation loads
             setTimeout(initSearchFunctionality, 100);
 
+            arrangeMobileHeader();
+
             // The mobile menu panel is built from the nav above, so it can only
             // be loaded once that markup exists.
             loadMobileMenuPanel();
         }
     });
+
+    // Portrait phones use a different header arrangement: icons, centred logo
+    // and menu toggle on the top bar, with the search field on its own row
+    // below. The search cell and the toggle live in different parents, so CSS
+    // `order` cannot swap them -- the nodes have to move.
+    //
+    // Landscape phones and desktop keep the original arrangement, and the move
+    // is reversed if the viewport stops matching.
+    const PORTRAIT_PHONE = '(orientation: portrait) and (max-width: 768px)';
+
+    function arrangeMobileHeader() {
+        const header = document.getElementById('shared-header-nav');
+        if (!header) return;
+
+        const topRow = header.querySelector('.top-bar .container');
+        const navRow = header.querySelector('nav .container');
+        const searchCell = header.querySelector('.top-bar-left');
+        const toggle = header.querySelector('.mobile-toggle');
+        if (!topRow || !navRow || !searchCell || !toggle) return;
+
+        if (window.matchMedia(PORTRAIT_PHONE).matches) {
+            if (searchCell.parentElement !== navRow) navRow.appendChild(searchCell);
+            if (toggle.parentElement !== topRow) topRow.appendChild(toggle);
+        } else {
+            // restore: search first in the top bar, toggle back in the nav
+            if (searchCell.parentElement !== topRow) {
+                topRow.insertBefore(searchCell, topRow.firstChild);
+            }
+            if (toggle.parentElement !== navRow) navRow.appendChild(toggle);
+        }
+    }
+
+    window.addEventListener('orientationchange', function () {
+        setTimeout(arrangeMobileHeader, 100);
+    });
+
+    window.addEventListener('resize', arrangeMobileHeader);
 
     // Loaded from here rather than a <script> tag on all 35 internal pages.
     function loadMobileMenuPanel() {

@@ -992,54 +992,62 @@ footer {
 }
 
 /* ---------------------------------------------------------------------------
-   Internal pages, portrait phones.
+   Internal pages, PORTRAIT PHONES ONLY.
 
-   Scoped with :not(.parmarth-style-header) throughout -- style.css is shared
-   with the home page, which has its own header and must not be touched.
+   Arrangement here differs from every other viewport:
+     top bar  ->  contact/social icons | logo (centred) | menu toggle
+     menu bar ->  the search field, full width
 
-   Placed last so it overrides the two earlier max-width: 768px blocks, which
+   Landscape phones and desktop are deliberately excluded and keep the
+   original design. Everything is also scoped with
+   :not(.parmarth-style-header), since style.css is shared with the home page.
+
+   The node moves are done by arrangeMobileHeader() in shared-navigation.js:
+   the search field and the toggle sit in different parents, and CSS `order`
+   can only reorder siblings.
+
+   Placed last so it overrides the earlier max-width: 768px blocks, which
    wrapped this bar onto three rows and hid the social icons.
    --------------------------------------------------------------------------- */
 @media (orientation: portrait) and (max-width: 768px) {
-    /* One row: search on the left, logo centred, all icons on the right. */
     header:not(.parmarth-style-header) .top-bar .container {
         flex-wrap: nowrap;
         gap: 0.5rem;
-        padding: 0 1rem;
+        padding: 0 0.85rem;
     }
 
-    header:not(.parmarth-style-header) .top-bar-left {
-        flex: 1 1 auto;
+    /* Equal outer cells are what actually centre the logo; sizing them by
+       content leaves it wherever they happen to end. */
+    header:not(.parmarth-style-header) .top-bar-right,
+    header:not(.parmarth-style-header) .top-bar .mobile-toggle {
+        flex: 1 1 0;
         min-width: 0;
     }
 
-    header:not(.parmarth-style-header) .search-bar {
-        max-width: none;
-        width: 100%;
-    }
-
-    header:not(.parmarth-style-header) .search-bar input {
-        padding: 0.45rem 0.8rem;
-        font-size: 0.85rem;
-    }
-
-    header:not(.parmarth-style-header) .search-bar button {
-        padding: 0.45rem 0.6rem;
+    header:not(.parmarth-style-header) .top-bar-right {
+        order: 1;
+        width: auto;
+        justify-content: flex-start;
+        gap: 2px;
     }
 
     header:not(.parmarth-style-header) .top-bar-center {
+        order: 2;
         flex: 0 0 auto;
     }
 
-    /* undoes width:100% + centring, which put these on their own row */
-    header:not(.parmarth-style-header) .top-bar-right {
-        flex: 0 0 auto;
-        width: auto;
-        justify-content: flex-end;
-        gap: 0.3rem;
+    /* Static rather than absolute, so it becomes a flex item and the centring
+       above can account for its width. */
+    header:not(.parmarth-style-header) .top-bar .mobile-toggle {
+        order: 3;
+        position: static;
+        transform: none;
+        text-align: right;
+        line-height: 1;
+        color: var(--text-light);
     }
 
-    /* the earlier block hides these at this width */
+    /* the earlier 768px block hides these */
     header:not(.parmarth-style-header) .social-icons {
         display: flex;
         gap: 2px;
@@ -1049,43 +1057,55 @@ footer {
         gap: 2px;
     }
 
-    /* six icons plus the divider have to share the row with a usable search
-       field, so they are compact here */
     header:not(.parmarth-style-header) .contact-icon,
     header:not(.parmarth-style-header) .social-icon {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         flex: 0 0 auto;
     }
 
     header:not(.parmarth-style-header) .contact-icon svg,
     header:not(.parmarth-style-header) .social-icon svg {
-        width: 12px;
-        height: 12px;
+        width: 11px;
+        height: 11px;
     }
 
     /* separates email from facebook */
     header:not(.parmarth-style-header) .social-icons-divider {
-        height: 16px;
-        margin: 0 0.3rem;
+        height: 15px;
+        margin: 0 0.25rem;
     }
 
-    /* The menu bar carried the site's white nav background but, with the menu
-       list hidden behind the toggle, showed as an empty white band between the
-       header and the page. Carry the header's colour through it instead. */
+    /* Menu row. It carried the site's white nav background but, with the menu
+       list behind the toggle, that showed as an empty white band between the
+       header and the page -- so the header colour is carried through. */
     header:not(.parmarth-style-header) nav {
         background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         box-shadow: none;
     }
 
     header:not(.parmarth-style-header) nav .container {
-        padding: 0.4rem 0;
-        min-height: 42px;
+        padding: 0.5rem 0.85rem;
     }
 
-    header:not(.parmarth-style-header) .mobile-toggle {
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--text-light);
+    header:not(.parmarth-style-header) nav .top-bar-left {
+        flex: 1 1 auto;
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* a full row to itself, so it is finally a usable width */
+    header:not(.parmarth-style-header) .search-bar {
+        width: 100%;
+        max-width: none;
+    }
+
+    header:not(.parmarth-style-header) .search-bar input {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    header:not(.parmarth-style-header) .search-bar button {
+        padding: 0.5rem 0.8rem;
     }
 }

@@ -4,20 +4,22 @@
 // width well above any mobile breakpoint yet still have no hover, and a
 // hover-opened menu there can never be tapped shut. Pointing devices are
 // excluded, so they keep the pure CSS :hover behaviour untouched.
+// Delegated from document rather than bound to each .dropdown: this file runs
+// at parse time, while internal pages have their nav injected later by
+// shared-navigation.js on DOMContentLoaded. Binding directly matched nothing
+// there, so those dropdowns could not be opened at all.
 if (window.matchMedia('(hover: none)').matches) {
-    document.querySelectorAll('.dropdown').forEach(dropdown => {
-        const link = dropdown.querySelector(':scope > a');
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('.dropdown > a');
         if (!link) return;
 
-        link.addEventListener('click', (e) => {
-            // only intercept parents that point at a fragment; real page links
-            // should still navigate
-            if ((link.getAttribute('href') || '').indexOf('#') === -1) return;
-            e.preventDefault();
-            // without this, tapping a nested parent also toggles its ancestor
-            e.stopPropagation();
-            dropdown.classList.toggle('active');
-        });
+        // only intercept parents that point at a fragment; real page links
+        // should still navigate
+        if ((link.getAttribute('href') || '').indexOf('#') === -1) return;
+
+        e.preventDefault();
+        // toggling just this link's own parent leaves any ancestor open
+        link.parentElement.classList.toggle('active');
     });
 }
 
