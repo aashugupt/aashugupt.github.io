@@ -9,17 +9,42 @@
 // shared-navigation.js on DOMContentLoaded. Binding directly matched nothing
 // there, so those dropdowns could not be opened at all.
 if (window.matchMedia('(hover: none)').matches) {
+    // Closes every open dropdown except the branch `keep` sits on, so opening
+    // a nested submenu does not collapse the parent it lives in.
+    const closeDropdowns = (keep) => {
+        document.querySelectorAll('.dropdown.active').forEach((open) => {
+            if (keep && open.contains(keep)) return;
+            open.classList.remove('active');
+        });
+    };
+
     document.addEventListener('click', (e) => {
         const link = e.target.closest('.dropdown > a');
-        if (!link) return;
+
+        if (!link) {
+            // A tap outside the menus dismisses them. Taps on a leaf link
+            // inside one are left alone -- that navigates away regardless.
+            if (!e.target.closest('.dropdown')) closeDropdowns(null);
+            return;
+        }
 
         // only intercept parents that point at a fragment; real page links
         // should still navigate
-        if ((link.getAttribute('href') || '').indexOf('#') === -1) return;
+        if ((link.getAttribute('href') || '').indexOf('#') === -1) {
+            closeDropdowns(null);
+            return;
+        }
 
         e.preventDefault();
-        // toggling just this link's own parent leaves any ancestor open
-        link.parentElement.classList.toggle('active');
+
+        const dropdown = link.parentElement;
+        const wasOpen = dropdown.classList.contains('active');
+
+        // Drop any branch this one is not part of, so switching between two
+        // top-level menus closes the first along with its open submenus.
+        closeDropdowns(dropdown);
+
+        dropdown.classList.toggle('active', !wasOpen);
     });
 }
 
