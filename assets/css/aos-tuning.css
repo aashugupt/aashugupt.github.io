@@ -1,0 +1,21 @@
+/* Loaded after AOS's own stylesheet so these rules win on equal specificity.
+ *
+ * AOS ships fade-left as translate3d(100px,0,0) and fade-right as
+ * translate3d(-100px,0,0). A transformed box counts toward the page's
+ * scrollable overflow, and below the desktop breakpoint these rows are
+ * full-width with no side margin to absorb the offset -- so the +100px made
+ * the document wider than the viewport and the page painted with a blank
+ * strip down the right-hand side.
+ *
+ * The lateral move becomes a vertical one at those widths. Only the starting
+ * transform is replaced; AOS's .aos-animate end state carries three
+ * compound selectors and still overrides this, so the animation resolves
+ * normally. Desktop keeps the sideways motion, where the centred container
+ * has margin enough for it.
+ */
+@media (max-width: 992px) {
+    [data-aos="fade-left"],
+    [data-aos="fade-right"] {
+        transform: translate3d(0, 30px, 0);
+    }
+}
