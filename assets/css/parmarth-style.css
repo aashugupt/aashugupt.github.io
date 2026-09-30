@@ -286,10 +286,15 @@
     transition: all 0.3s ease;
 }
 
-.central-logo:hover::after,
-.central-logo:hover::before {
-    opacity: 1;
-    visibility: visible;
+/* Pointing devices only. The logo carries no data-tooltip, so this renders an
+   empty dark box -- harmless on hover, but on touch :hover sticks after the
+   tap that opens the cards panel and would leave it parked on screen. */
+@media (hover: hover) {
+    .central-logo:hover::after,
+    .central-logo:hover::before {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 /* Left and Right Navigation */

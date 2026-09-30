@@ -370,25 +370,31 @@
 
     /* Top left, not right: the top bar's contact/social icons sit in the
        right half of the screen and the two collided.
-       fixed, not absolute: the panel scrolls, and an absolute button would
-       scroll out of reach with the content. */
+       Lives on <body>, not inside the panel -- see service-cards.js for why.
+       z-index must clear .top-info-bar (30), which is painted above the
+       panel and was intercepting taps on this corner. */
     .services-close {
+        display: none;
         position: fixed;
-        top: 0.35rem;
+        top: 0.4rem;
         left: 0.5rem;
         width: 60px;
         height: 60px;
-        display: flex;
         align-items: center;
         justify-content: center;
         padding: 0;
         border: 0;
-        background: none;
+        border-radius: 50%;
+        background: rgba(44, 24, 16, 0.55);
         color: #FFD700;
-        font-size: 3rem;
+        font-size: 2.6rem;
         line-height: 1;
         cursor: pointer;
-        z-index: 2;
+        z-index: 10005;
+    }
+
+    body.services-open .services-close {
+        display: flex;
     }
 }
 

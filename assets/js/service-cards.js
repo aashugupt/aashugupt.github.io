@@ -14,10 +14,12 @@
 
         function open() {
             if (panel) panel.classList.add('is-open');
+            document.body.classList.add('services-open');
         }
 
         function close() {
             if (panel) panel.classList.remove('is-open');
+            document.body.classList.remove('services-open');
             if (aarti) aarti.classList.remove('locked-expanded');
         }
 
@@ -66,7 +68,14 @@
                     e.stopPropagation();
                     close();
                 });
-                panel.appendChild(closeBtn);
+
+                // Appended to body rather than the panel. The panel lives
+                // inside .split-nav-container, which has z-index 25 and so
+                // forms a stacking context -- meaning no z-index on the panel
+                // or its children can lift them above .top-info-bar (z-index
+                // 30). That bar spans the full width at top:0 and its
+                // left-hand spacer covered this corner, swallowing the taps.
+                document.body.appendChild(closeBtn);
 
                 document.addEventListener('keydown', function (e) {
                     if (e.key === 'Escape') close();
