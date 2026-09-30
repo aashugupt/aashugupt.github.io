@@ -1,0 +1,53 @@
+/* Carousel Responsive Styles - Portrait/Landscape Optimization */
+
+/* Default (Landscape) - Desktop & Mobile Landscape */
+.carousel-slide-1 {
+    background-image: url('../images/hero-image.jpeg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.carousel-slide-2 {
+    background-image: url('../images/ashram-view.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.carousel-slide-3 {
+    background-image: url('../images/history-banner.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/* Portrait Mobile Only - Optimized positioning */
+@media (orientation: portrait) and (max-width: 768px) {
+
+    /* Slide 1: Hero Image - Show left side with "Bada Bhaktmaal" text */
+    .carousel-slide-1 {
+        background-position: left center;
+        background-size: auto 100%;
+        /* This will show more width by fitting to height */
+    }
+
+    /* Slide 2: Ashram View - Keep center positioning */
+    .carousel-slide-2 {
+        background-position: center center;
+        background-size: auto 100%;
+    }
+
+    /* Slide 3: History Banner - Adjust as needed */
+    .carousel-slide-3 {
+        background-position: center center;
+        background-size: auto 100%;
+    }
+}
+
+/* Fine-tuning: If auto 100% shows too much white space, try these alternatives:
+   - background-size: cover; (maintains full coverage but crops more)
+   - background-size: 150% auto; (zooms in 1.5x)
+   - background-size: contain; (shows entire image with possible letterboxing)
+   - background-position: 30% center; (custom horizontal positioning)
+*/
