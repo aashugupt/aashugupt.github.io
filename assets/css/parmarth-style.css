@@ -530,6 +530,13 @@
     }
 
     /* separates contact from social, and pushes the social group right */
+    /* The hero image is the wordmark banner; a centred crop starts past the
+       "B" of Bhaktmaal. Shift the window left to bring the word into frame.
+       !important is needed to beat the inline `background` shorthand. */
+    .hero-home {
+        background-position: 5% center !important;
+    }
+
     .parmarth-style-header .social-icons-divider {
         display: block;
         flex: 0 0 auto;
