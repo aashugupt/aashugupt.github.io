@@ -1,21 +1,24 @@
-/* Loaded after AOS's own stylesheet so these rules win on equal specificity.
- *
- * AOS ships fade-left as translate3d(100px,0,0) and fade-right as
+/* AOS starts fade-left at translate3d(100px,0,0) and fade-right at
  * translate3d(-100px,0,0). A transformed box counts toward the page's
- * scrollable overflow, and below the desktop breakpoint these rows are
- * full-width with no side margin to absorb the offset -- so the +100px made
- * the document wider than the viewport and the page painted with a blank
- * strip down the right-hand side.
+ * scrollable overflow, so the rightward offset made the document wider than
+ * the viewport and the page painted with a blank strip down its right edge.
  *
- * The lateral move becomes a vertical one at those widths. Only the starting
- * transform is replaced; AOS's .aos-animate end state carries three
- * compound selectors and still overrides this, so the animation resolves
- * normally. Desktop keeps the sideways motion, where the centred container
- * has margin enough for it.
+ * Clipping the two sections that hold the lateral animations contains that
+ * overflow at the section edge, which sits flush with the viewport edge --
+ * the element still slides in from out of view, and the page keeps the
+ * viewport's width. Every element using fade-left/fade-right lives in one of
+ * these two sections.
+ *
+ * Deliberately not set on html/body: overflow there risks turning the root
+ * into a scroll container, which is what breaks the hero's
+ * background-attachment: fixed parallax.
+ *
+ * `hidden` is the fallback for browsers without `clip`; both axes are
+ * specified, so neither can compute to auto behind our backs. Nothing in
+ * either section overflows vertically, so clipping that axis costs nothing.
  */
-@media (max-width: 992px) {
-    [data-aos="fade-left"],
-    [data-aos="fade-right"] {
-        transform: translate3d(0, 30px, 0);
-    }
+.guruji-intro,
+.history-timeline {
+    overflow: hidden;
+    overflow: clip;
 }
