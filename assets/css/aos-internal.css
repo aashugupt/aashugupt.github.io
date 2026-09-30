@@ -1,0 +1,27 @@
+/* Internal pages only. Loaded by scroll-animations.js, which is itself loaded
+ * by shared-navigation.js -- neither of which the home page touches. Kept
+ * separate from aos-tuning.css for exactly that reason: that file is linked by
+ * index.html, and the home page's animations are already settled.
+ *
+ * Applied to whichever section the script put a sideways effect in.
+ *
+ * AOS starts fade-left at translate3d(100px,0,0) and fade-right at
+ * translate3d(-100px,0,0). A transformed box counts toward the page's
+ * scrollable overflow, so the rightward offset makes the document wider than
+ * the viewport and the page paints a blank strip down its right edge. Clipping
+ * the section absorbs that at an edge sitting flush with the viewport: the
+ * element still slides in from out of view, and the page keeps the viewport's
+ * width.
+ *
+ * Deliberately not set on html/body: overflow there risks turning the root
+ * into a scroll container, which is what breaks background-attachment: fixed.
+ *
+ * `hidden` is the fallback for browsers without `clip`; both axes are
+ * specified in each, so neither can compute to auto behind our backs. The
+ * sections this lands on hold no sticky children and nothing that overflows
+ * vertically, so clipping that axis costs nothing.
+ */
+.aos-clip-x {
+    overflow: hidden;
+    overflow: clip;
+}

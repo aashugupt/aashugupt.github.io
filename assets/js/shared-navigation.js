@@ -150,6 +150,10 @@
             // The mobile menu panel is built from the nav above, so it can only
             // be loaded once that markup exists.
             loadMobileMenuPanel();
+
+            // After the nav, so AOS measures its offsets against the finished
+            // layout rather than the page's pre-injection height.
+            loadScrollAnimations();
         }
     });
 
@@ -207,6 +211,18 @@
 
         const script = document.createElement('script');
         script.src = 'assets/js/mobile-menu.js?v=2';
+        document.body.appendChild(script);
+    }
+
+    // Also loaded from here rather than a <script> tag on all 40 internal
+    // pages. The script assigns its own data-aos attributes from the shared
+    // structural classes, so the pages themselves need no markup changes.
+    function loadScrollAnimations() {
+        if (document.querySelector('script[data-scroll-animations]')) return;
+
+        const script = document.createElement('script');
+        script.src = 'assets/js/scroll-animations.js?v=1';
+        script.setAttribute('data-scroll-animations', '');
         document.body.appendChild(script);
     }
 
