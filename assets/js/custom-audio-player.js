@@ -395,34 +395,55 @@
 
         console.log('✅ Custom audio player initialized with 6 volume levels');
 
-        // Autoplay logic - try immediately, fall back to user interaction
+        // Autoplay, with a first-gesture fallback.
+        //
+        // Mobile browsers only permit autoplay once the user has engaged with
+        // the origin, so on a first visit the gesture path is the normal one
+        // and has to be reliable.
+        const GESTURES = ['pointerdown', 'touchstart', 'click', 'keydown'];
         let hasPlayed = false;
 
-        // Try to autoplay on page load
+        function tryPlay() {
+            if (hasPlayed || !audio.paused) return;
+            // a rejection here is fine; the next gesture retries
+            audio.play().catch(() => {});
+        }
+
+        function releaseGestureHooks() {
+            GESTURES.forEach(type => {
+                document.removeEventListener(type, tryPlay, { capture: true });
+            });
+        }
+
+        audio.addEventListener('play', () => {
+            if (!hasPlayed) {
+                hasPlayed = true;
+                releaseGestureHooks();
+            }
+        });
+
+        // Registered up front and in the capture phase, both deliberately:
+        //
+        //  - Capture, because several handlers on this page call
+        //    stopPropagation() (the central logo, the Aarti card, the
+        //    hamburger, dropdown parents). Those are the first things a phone
+        //    user taps, and a bubble-phase listener on document would never
+        //    see the event.
+        //
+        //  - Up front rather than inside the rejection handler below, because
+        //    play()'s rejection is asynchronous: a tap landing before it
+        //    resolved would previously find no listener attached at all.
+        //
+        // They are removed only once playback has actually begun, so a gesture
+        // that fails to start it no longer discards the remaining chances.
+        GESTURES.forEach(type => {
+            document.addEventListener(type, tryPlay, { capture: true, passive: true });
+        });
+
         audio.play().then(() => {
-            hasPlayed = true;
             console.log('✅ Autoplay started');
-        }).catch(err => {
-            console.log('⚠️ Autoplay blocked, waiting for user interaction');
-
-            // Auto-play on first user interaction
-            const startOnInteraction = () => {
-                if (!hasPlayed && audio.paused) {
-                    audio.play().then(() => {
-                        hasPlayed = true;
-                        console.log('✅ Started on user interaction');
-                    }).catch(err => console.log('Play prevented:', err));
-                }
-                // Remove listeners after first interaction
-                document.removeEventListener('click', startOnInteraction);
-                document.removeEventListener('touchstart', startOnInteraction);
-                document.removeEventListener('keydown', startOnInteraction);
-            };
-
-            // Listen for user interactions
-            document.addEventListener('click', startOnInteraction);
-            document.addEventListener('touchstart', startOnInteraction);
-            document.addEventListener('keydown', startOnInteraction);
+        }).catch(() => {
+            console.log('⚠️ Autoplay blocked; will start on first interaction');
         });
     });
 })();
