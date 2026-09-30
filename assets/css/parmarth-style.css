@@ -506,6 +506,77 @@
     }
 }
 
+/* Portrait phones: confine the contact/social row to the right half of the
+   screen, on one line, without colliding with the hamburger. Sizes are
+   flex-distributed rather than fixed so this holds from ~360px to ~430px. */
+@media (orientation: portrait) and (max-width: 768px) {
+    .parmarth-style-header .top-info-bar .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* .container's padding is symmetric, so its right 50% starts exactly at
+       the screen midpoint -- which puts every icon in the right half. */
+    .parmarth-style-header .top-bar-right {
+        width: 50%;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+        gap: 2px;
+        margin-right: 0;
+        padding-right: 2.5rem;
+    }
+
+    .parmarth-style-header .social-icons-divider {
+        display: none;
+    }
+
+    .parmarth-style-header .icon-contact,
+    .parmarth-style-header .social-icon {
+        position: relative;
+        flex: 1 1 0;
+        min-width: 0;
+        max-width: 26px;
+        width: auto;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    /* keep the glyph proportional at whatever size flex settles on */
+    .parmarth-style-header .icon-contact svg,
+    .parmarth-style-header .social-icon svg {
+        width: 58%;
+        height: 58%;
+    }
+
+    /* Tooltips are hover-only and unreachable on touch, so ::after is free to
+       become a taller tap target. Width tiles across the gap so neighbouring
+       targets meet without overlapping (an overlap would steal taps). */
+    .parmarth-style-header .icon-contact::before {
+        display: none;
+    }
+
+    .parmarth-style-header .icon-contact::after,
+    .parmarth-style-header .social-icon::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        transform: translate(-50%, -50%);
+        width: calc(100% + 2px);
+        height: 44px;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+        /* the tooltip arrow ships hidden; a hidden box cannot take taps */
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+}
+
 @media (max-width: 768px) {
     .top-bar-right {
         flex-wrap: wrap;
