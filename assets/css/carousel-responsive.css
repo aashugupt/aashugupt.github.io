@@ -26,14 +26,17 @@
    part of the landscape banner is shown. A non-cover size (e.g. `200% auto`)
    leaves the bottom of the slide unpainted, which reads as a white gap. */
 @media (orientation: portrait) and (max-width: 992px) {
+    /* hero-image: clears the "B" of Bhaktmaal, which 22% cut in half */
     .carousel-slide-1 {
-        background-position: 22% center;
+        background-position: 6% center;
     }
 
+    /* ashram-view is the lit temple -- centres its front entrance */
     .carousel-slide-2 {
-        background-position: 30% center;
+        background-position: 40% center;
     }
 
+    /* history-banner is the group photo */
     .carousel-slide-3 {
         background-position: 50% center;
     }
