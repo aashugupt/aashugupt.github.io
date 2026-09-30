@@ -510,6 +510,8 @@
     .top-bar-right {
         flex-wrap: wrap;
         gap: 0.8rem;
+        /* keep clear of the absolutely positioned hamburger at right: 1rem */
+        margin-right: 2rem;
     }
 
     .parmarth-style-header {
