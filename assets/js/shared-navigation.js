@@ -144,8 +144,32 @@
 
             // Initialize search functionality after navigation loads
             setTimeout(initSearchFunctionality, 100);
+
+            // The mobile menu panel is built from the nav above, so it can only
+            // be loaded once that markup exists.
+            loadMobileMenuPanel();
         }
     });
+
+    // Loaded from here rather than a <script> tag on all 35 internal pages.
+    function loadMobileMenuPanel() {
+        if (!document.querySelector('link[data-mobile-menu-css]')) {
+            const css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = 'assets/css/mobile-menu.css?v=1';
+            css.setAttribute('data-mobile-menu-css', '');
+            document.head.appendChild(css);
+        }
+
+        if (window.initMobileMenuPanel) {
+            window.initMobileMenuPanel();
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = 'assets/js/mobile-menu.js?v=1';
+        document.body.appendChild(script);
+    }
 
     // Search functionality
     function initSearchFunctionality() {

@@ -50,18 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
         startAutoPlay();
     }
 
-    // Mobile menu toggle for split navigation
-    const mobileToggle = document.querySelector('.mobile-toggle');
-    const navLeft = document.querySelector('.nav-left');
-    const navRight = document.querySelector('.nav-right');
-
-    if (mobileToggle) {
-        mobileToggle.addEventListener('click', function() {
-            if (navLeft) navLeft.classList.toggle('active');
-            if (navRight) navRight.classList.toggle('active');
-        });
-    }
-
     // Dropdown toggle for mobile
     const dropdowns = document.querySelectorAll('.dropdown');
     dropdowns.forEach(dropdown => {

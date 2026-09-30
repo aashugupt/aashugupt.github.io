@@ -613,8 +613,12 @@
         right: 1rem;
     }
 
+    /* align to the top of the logo rather than centring against its full
+       height, which pushed the toggle low once the logo grew to 90px */
     .mobile-toggle {
         display: block;
+        top: 0.75rem;
+        transform: none;
     }
 
     .split-nav-container .container {
