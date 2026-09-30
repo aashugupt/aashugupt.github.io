@@ -523,11 +523,20 @@
         flex-wrap: nowrap;
         gap: 2px;
         margin-right: 0;
-        padding-right: 2.5rem;
+        /* no clearance: the row right-aligns with the hamburger's own 1rem
+           offset, so the YouTube icon sits directly above it. They never
+           collide because the two rows sit at different heights. */
+        padding-right: 0;
     }
 
+    /* separates contact from social, and pushes the social group right */
     .parmarth-style-header .social-icons-divider {
-        display: none;
+        display: block;
+        flex: 0 0 auto;
+        width: 1px;
+        height: 18px;
+        margin: 0 0.45rem;
+        background: rgba(255, 255, 255, 0.55);
     }
 
     .parmarth-style-header .icon-contact,
@@ -635,8 +644,10 @@
         margin: 0 auto;
     }
 
+    /* 90px keeps the same logo-to-header ratio as desktop (160px in a 100vh
+       header) and is large enough for the Hindi arc to read. */
     .central-logo img {
-        height: 50px;
+        height: 90px;
     }
 
     .central-logo::after {
