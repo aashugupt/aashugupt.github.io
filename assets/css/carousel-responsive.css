@@ -1,6 +1,6 @@
-/* Carousel Responsive Styles - Portrait/Landscape Optimization */
+/* Carousel slide images + per-orientation framing */
 
-/* Default (Landscape) - Desktop & Mobile Landscape */
+/* Default (landscape / desktop) */
 .carousel-slide-1 {
     background-image: url('../images/hero-image.jpeg');
     background-size: cover;
@@ -22,32 +22,19 @@
     background-repeat: no-repeat;
 }
 
-/* Portrait Mobile Only - Optimized positioning */
-@media (orientation: portrait) and (max-width: 768px) {
-
-    /* Slide 1: Hero Image - Show left side with "Bada Bhaktmaal" text */
+/* Portrait phones: keep `cover` and shift the crop sideways to pick which
+   part of the landscape banner is shown. A non-cover size (e.g. `200% auto`)
+   leaves the bottom of the slide unpainted, which reads as a white gap. */
+@media (orientation: portrait) and (max-width: 992px) {
     .carousel-slide-1 {
-        background-position: 20% center !important;
-        background-size: 200% auto !important;
-        /* Zooms in 2x and shows left portion */
+        background-position: 22% center;
     }
 
-    /* Slide 2: Ashram View - Show left side */
     .carousel-slide-2 {
-        background-position: 20% center !important;
-        background-size: 200% auto !important;
+        background-position: 30% center;
     }
 
-    /* Slide 3: History Banner - Show left side */
     .carousel-slide-3 {
-        background-position: 20% center !important;
-        background-size: 200% auto !important;
+        background-position: 50% center;
     }
 }
-
-/* Fine-tuning: If auto 100% shows too much white space, try these alternatives:
-   - background-size: cover; (maintains full coverage but crops more)
-   - background-size: 150% auto; (zooms in 1.5x)
-   - background-size: contain; (shows entire image with possible letterboxing)
-   - background-position: 30% center; (custom horizontal positioning)
-*/

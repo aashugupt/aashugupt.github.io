@@ -209,44 +209,6 @@
     right: 2rem;
 }
 
-/* Portrait Mobile - Carousel Background Positioning & Height */
-@media (orientation: portrait) and (max-width: 768px) {
-    /* Reduce carousel height to avoid white gap */
-    .hero-carousel-section {
-        height: 40vh !important;
-        min-height: 350px !important;
-    }
-
-    .carousel-container {
-        height: 100% !important;
-    }
-
-    /* Remove the duplicate hero section space below carousel */
-    section.hero {
-        min-height: 0 !important;
-        height: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        overflow: hidden !important;
-    }
-
-    /* Image positioning */
-    .carousel-slide-1 {
-        background-position: 20% center !important;
-        background-size: 200% auto !important;
-    }
-
-    .carousel-slide-2 {
-        background-position: 20% center !important;
-        background-size: 200% auto !important;
-    }
-
-    .carousel-slide-3 {
-        background-position: 20% center !important;
-        background-size: 200% auto !important;
-    }
-}
-
 /* Split Navigation with Central Logo - directly below top bar */
 .split-nav-container {
     position: absolute;
@@ -497,9 +459,23 @@
 
 /* Responsive Design */
 @media (max-width: 992px) {
+    /* Header drives the height; carousel must fill it or the remainder
+       paints as blank white space (carousel is position:absolute). */
+    .parmarth-style-header {
+        height: 60vh;
+        min-height: 420px;
+    }
+
     .hero-carousel-section {
-        height: auto;
-        min-height: 400px;
+        height: 100%;
+        min-height: 0;
+    }
+
+    /* Mobile browsers render background-attachment:fixed unreliably; the
+       section's background can fail to paint, leaving a white band with its
+       white text invisible. !important overrides the inline style. */
+    section.hero {
+        background-attachment: scroll !important;
     }
 
     .central-logo {
@@ -536,8 +512,9 @@
         gap: 0.8rem;
     }
 
-    .hero-carousel-section {
-        min-height: 300px;
+    .parmarth-style-header {
+        height: 55vh;
+        min-height: 380px;
     }
 
     .carousel-btn {
