@@ -201,10 +201,23 @@ body {
     padding: 0.5rem 0;
 }
 
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+/* Pointing devices only. On touch, :hover sticks to the tapped element until
+   something else is tapped, so a hover-opened menu can never be tapped shut.
+   The .active equivalent below is driven by the tap handler in script.js. */
+@media (hover: hover) {
+    .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+@media (hover: none) {
+    .dropdown.active > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-menu li {
@@ -245,10 +258,20 @@ body {
     transform: translateX(-10px);
 }
 
-.dropdown-menu .dropdown:hover > .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
+@media (hover: hover) {
+    .dropdown-menu .dropdown:hover > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+}
+
+@media (hover: none) {
+    .dropdown-menu .dropdown.active > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
 }
 
 .mobile-toggle {
@@ -965,5 +988,104 @@ footer {
     .contact-info {
         flex-direction: column;
         gap: 0.5rem;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   Internal pages, portrait phones.
+
+   Scoped with :not(.parmarth-style-header) throughout -- style.css is shared
+   with the home page, which has its own header and must not be touched.
+
+   Placed last so it overrides the two earlier max-width: 768px blocks, which
+   wrapped this bar onto three rows and hid the social icons.
+   --------------------------------------------------------------------------- */
+@media (orientation: portrait) and (max-width: 768px) {
+    /* One row: search on the left, logo centred, all icons on the right. */
+    header:not(.parmarth-style-header) .top-bar .container {
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+        padding: 0 1rem;
+    }
+
+    header:not(.parmarth-style-header) .top-bar-left {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    header:not(.parmarth-style-header) .search-bar {
+        max-width: none;
+        width: 100%;
+    }
+
+    header:not(.parmarth-style-header) .search-bar input {
+        padding: 0.45rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    header:not(.parmarth-style-header) .search-bar button {
+        padding: 0.45rem 0.6rem;
+    }
+
+    header:not(.parmarth-style-header) .top-bar-center {
+        flex: 0 0 auto;
+    }
+
+    /* undoes width:100% + centring, which put these on their own row */
+    header:not(.parmarth-style-header) .top-bar-right {
+        flex: 0 0 auto;
+        width: auto;
+        justify-content: flex-end;
+        gap: 0.3rem;
+    }
+
+    /* the earlier block hides these at this width */
+    header:not(.parmarth-style-header) .social-icons {
+        display: flex;
+        gap: 2px;
+    }
+
+    header:not(.parmarth-style-header) .contact-icons {
+        gap: 2px;
+    }
+
+    /* six icons plus the divider have to share the row with a usable search
+       field, so they are compact here */
+    header:not(.parmarth-style-header) .contact-icon,
+    header:not(.parmarth-style-header) .social-icon {
+        width: 22px;
+        height: 22px;
+        flex: 0 0 auto;
+    }
+
+    header:not(.parmarth-style-header) .contact-icon svg,
+    header:not(.parmarth-style-header) .social-icon svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    /* separates email from facebook */
+    header:not(.parmarth-style-header) .social-icons-divider {
+        height: 16px;
+        margin: 0 0.3rem;
+    }
+
+    /* The menu bar carried the site's white nav background but, with the menu
+       list hidden behind the toggle, showed as an empty white band between the
+       header and the page. Carry the header's colour through it instead. */
+    header:not(.parmarth-style-header) nav {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        box-shadow: none;
+    }
+
+    header:not(.parmarth-style-header) nav .container {
+        padding: 0.4rem 0;
+        min-height: 42px;
+    }
+
+    header:not(.parmarth-style-header) .mobile-toggle {
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-light);
     }
 }
