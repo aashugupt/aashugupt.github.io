@@ -666,3 +666,54 @@
         padding: 0.5rem 1rem;
     }
 }
+
+/* ---------------------------------------------------------------------------
+   Small landscape screens only -- phones held sideways.
+
+   Deliberately gated on BOTH height and width:
+     max-height 520px  no desktop, laptop or landscape tablet is this short,
+                       so "default landscape" can never match this block.
+     max-width 1100px  the point below which ten nav items plus the logo stop
+                       fitting on one line at a readable size.
+
+   Height is the primary test because phones report inconsistent widths in
+   landscape -- some land above the 992px breakpoint used above, some below --
+   so the width-based blocks apply unevenly across devices.
+
+   Placed last in the file so it wins over those blocks at equal specificity.
+   --------------------------------------------------------------------------- */
+@media (orientation: landscape) and (max-height: 520px) and (max-width: 1100px) {
+    /* Full-size logo and menu text. The 992px block shrank both, which left
+       this screen with smaller type than a narrower portrait phone gets. */
+    .central-logo img {
+        height: 160px;
+    }
+
+    .nav-left a,
+    .nav-right a {
+        font-size: 1.05rem;
+        /* only horizontal padding is trimmed, to help the items fit */
+        padding: 0.6rem 0.85rem;
+    }
+
+    /* nowrap was clipping "Home", "About Us" and "Donate" off both edges.
+       Wrapping to a second line keeps every item reachable. */
+    .nav-left ul,
+    .nav-right ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.15rem 0.35rem;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .hero-home {
+        /* element-based sizing, so the crop below is predictable; mobile
+           browsers also paint background-attachment: fixed unreliably */
+        background-attachment: scroll !important;
+        /* Here the width binds, so the overflow is vertical: the wordmark sits
+           in the top ~23% of the banner and a centred crop starts below
+           "Bada". Pull the window up to bring the full name into frame. */
+        background-position: center 2% !important;
+    }
+}
