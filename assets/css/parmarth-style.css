@@ -736,12 +736,20 @@
     }
 
     .hero-home {
-        /* element-based sizing, so the crop below is predictable; mobile
-           browsers also paint background-attachment: fixed unreliably */
-        background-attachment: scroll !important;
         /* Here the width binds, so the overflow is vertical: the wordmark sits
            in the top ~23% of the banner and a centred crop starts below
-           "Bada". Pull the window up to bring the full name into frame. */
+           "Bada". Pull the window up to bring the full name into frame.
+           Still correct with the fixed attachment below: sizing then keys off
+           the viewport rather than the element, but landscape viewport and
+           element heights are close enough that 2% lands in the same place. */
         background-position: center 2% !important;
+    }
+
+    /* Parallax, matching the desktop behaviour: the background holds still
+       while the page scrolls. Needs section.hero.hero-home to outrank the
+       section.hero rule in the 992px block above, which pins this to scroll
+       for narrower screens -- .hero-home alone loses to it on specificity. */
+    section.hero.hero-home {
+        background-attachment: fixed !important;
     }
 }
