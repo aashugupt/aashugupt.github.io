@@ -221,6 +221,11 @@
         height: 100% !important;
     }
 
+    /* Hide the duplicate hero section below carousel */
+    section.hero {
+        display: none !important;
+    }
+
     /* Image positioning */
     .carousel-slide-1 {
         background-position: 20% center !important;
