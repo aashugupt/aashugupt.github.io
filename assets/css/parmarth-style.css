@@ -213,8 +213,8 @@
 @media (orientation: portrait) and (max-width: 768px) {
     /* Reduce carousel height to avoid white gap */
     .hero-carousel-section {
-        height: 50vh !important;
-        min-height: 400px !important;
+        height: 40vh !important;
+        min-height: 350px !important;
     }
 
     .carousel-container {
