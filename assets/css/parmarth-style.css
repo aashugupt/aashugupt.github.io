@@ -286,10 +286,15 @@
     transition: all 0.3s ease;
 }
 
-.central-logo:hover::after,
-.central-logo:hover::before {
-    opacity: 1;
-    visibility: visible;
+/* Pointing devices only. The logo carries no data-tooltip, so this renders an
+   empty dark box -- harmless on hover, but on touch :hover sticks after the
+   tap that opens the cards panel and would leave it parked on screen. */
+@media (hover: hover) {
+    .central-logo:hover::after,
+    .central-logo:hover::before {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 /* Left and Right Navigation */
@@ -386,10 +391,23 @@
     flex-direction: column;
 }
 
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+/* Hover opening is for pointing devices only. On touch, :hover sticks to the
+   tapped element, so a hover-opened menu can never be tapped shut. */
+@media (hover: hover) {
+    .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+/* Touch equivalent: .active is toggled by the tap handler in script.js */
+@media (hover: none) {
+    .dropdown.active > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-menu li {
@@ -438,10 +456,20 @@
     transform: translateX(-10px);
 }
 
-.dropdown-menu .dropdown:hover > .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
+@media (hover: hover) {
+    .dropdown-menu .dropdown:hover > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+}
+
+@media (hover: none) {
+    .dropdown-menu .dropdown.active > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
 }
 
 /* Mobile Toggle */
@@ -459,9 +487,23 @@
 
 /* Responsive Design */
 @media (max-width: 992px) {
+    /* Header drives the height; carousel must fill it or the remainder
+       paints as blank white space (carousel is position:absolute). */
+    .parmarth-style-header {
+        height: 60vh;
+        min-height: 420px;
+    }
+
     .hero-carousel-section {
-        height: auto;
-        min-height: 400px;
+        height: 100%;
+        min-height: 0;
+    }
+
+    /* Mobile browsers render background-attachment:fixed unreliably; the
+       section's background can fail to paint, leaving a white band with its
+       white text invisible. !important overrides the inline style. */
+    section.hero {
+        background-attachment: scroll !important;
     }
 
     .central-logo {
@@ -492,14 +534,104 @@
     }
 }
 
+/* Portrait phones: confine the contact/social row to the right half of the
+   screen, on one line, without colliding with the hamburger. Sizes are
+   flex-distributed rather than fixed so this holds from ~360px to ~430px. */
+@media (orientation: portrait) and (max-width: 768px) {
+    .parmarth-style-header .top-info-bar .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* .container's padding is symmetric, so its right 50% starts exactly at
+       the screen midpoint -- which puts every icon in the right half. */
+    .parmarth-style-header .top-bar-right {
+        width: 50%;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+        gap: 2px;
+        margin-right: 0;
+        /* no clearance: the row right-aligns with the hamburger's own 1rem
+           offset, so the YouTube icon sits directly above it. They never
+           collide because the two rows sit at different heights. */
+        padding-right: 0;
+    }
+
+    /* separates contact from social, and pushes the social group right */
+    /* The hero image is the wordmark banner; a centred crop starts past the
+       "B" of Bhaktmaal. Shift the window left to bring the word into frame.
+       !important is needed to beat the inline `background` shorthand. */
+    .hero-home {
+        background-position: 5% center !important;
+    }
+
+    .parmarth-style-header .social-icons-divider {
+        display: block;
+        flex: 0 0 auto;
+        width: 1px;
+        height: 18px;
+        margin: 0 0.45rem;
+        background: rgba(255, 255, 255, 0.55);
+    }
+
+    .parmarth-style-header .icon-contact,
+    .parmarth-style-header .social-icon {
+        position: relative;
+        flex: 1 1 0;
+        min-width: 0;
+        max-width: 26px;
+        width: auto;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    /* keep the glyph proportional at whatever size flex settles on */
+    .parmarth-style-header .icon-contact svg,
+    .parmarth-style-header .social-icon svg {
+        width: 58%;
+        height: 58%;
+    }
+
+    /* Tooltips are hover-only and unreachable on touch, so ::after is free to
+       become a taller tap target. Width tiles across the gap so neighbouring
+       targets meet without overlapping (an overlap would steal taps). */
+    .parmarth-style-header .icon-contact::before {
+        display: none;
+    }
+
+    .parmarth-style-header .icon-contact::after,
+    .parmarth-style-header .social-icon::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        right: auto;
+        bottom: auto;
+        transform: translate(-50%, -50%);
+        width: calc(100% + 2px);
+        height: 44px;
+        border: 0;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+        /* the tooltip arrow ships hidden; a hidden box cannot take taps */
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+}
+
 @media (max-width: 768px) {
     .top-bar-right {
         flex-wrap: wrap;
         gap: 0.8rem;
+        /* keep clear of the absolutely positioned hamburger at right: 1rem */
+        margin-right: 2rem;
     }
 
-    .hero-carousel-section {
-        min-height: 300px;
+    .parmarth-style-header {
+        height: 55vh;
+        min-height: 380px;
     }
 
     .carousel-btn {
@@ -516,8 +648,12 @@
         right: 1rem;
     }
 
+    /* align to the top of the logo rather than centring against its full
+       height, which pushed the toggle low once the logo grew to 90px */
     .mobile-toggle {
         display: block;
+        top: 0.75rem;
+        transform: none;
     }
 
     .split-nav-container .container {
@@ -547,12 +683,73 @@
         margin: 0 auto;
     }
 
+    /* 90px keeps the same logo-to-header ratio as desktop (160px in a 100vh
+       header) and is large enough for the Hindi arc to read. */
     .central-logo img {
-        height: 50px;
+        height: 90px;
     }
 
     .central-logo::after {
         font-size: 0.75rem;
         padding: 0.5rem 1rem;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   Small landscape screens only -- phones held sideways.
+
+   Deliberately gated on BOTH height and width:
+     max-height 520px  no desktop, laptop or landscape tablet is this short,
+                       so "default landscape" can never match this block.
+     max-width 1100px  the point below which ten nav items plus the logo stop
+                       fitting on one line at a readable size.
+
+   Height is the primary test because phones report inconsistent widths in
+   landscape -- some land above the 992px breakpoint used above, some below --
+   so the width-based blocks apply unevenly across devices.
+
+   Placed last in the file so it wins over those blocks at equal specificity.
+   --------------------------------------------------------------------------- */
+@media (orientation: landscape) and (max-height: 520px) and (max-width: 1100px) {
+    /* Full-size logo and menu text. The 992px block shrank both, which left
+       this screen with smaller type than a narrower portrait phone gets. */
+    .central-logo img {
+        height: 160px;
+    }
+
+    .nav-left a,
+    .nav-right a {
+        font-size: 1.05rem;
+        /* only horizontal padding is trimmed, to help the items fit */
+        padding: 0.6rem 0.85rem;
+    }
+
+    /* nowrap was clipping "Home", "About Us" and "Donate" off both edges.
+       Wrapping to a second line keeps every item reachable. */
+    .nav-left ul,
+    .nav-right ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.15rem 0.35rem;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .hero-home {
+        /* Here the width binds, so the overflow is vertical: the wordmark sits
+           in the top ~23% of the banner and a centred crop starts below
+           "Bada". Pull the window up to bring the full name into frame.
+           Still correct with the fixed attachment below: sizing then keys off
+           the viewport rather than the element, but landscape viewport and
+           element heights are close enough that 2% lands in the same place. */
+        background-position: center 2% !important;
+    }
+
+    /* Parallax, matching the desktop behaviour: the background holds still
+       while the page scrolls. Needs section.hero.hero-home to outrank the
+       section.hero rule in the 992px block above, which pins this to scroll
+       for narrower screens -- .hero-home alone loses to it on specificity. */
+    section.hero.hero-home {
+        background-attachment: fixed !important;
     }
 }

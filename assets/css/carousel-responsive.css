@@ -1,0 +1,31 @@
+/* Carousel slide images + per-orientation framing */
+
+/* Default (landscape / desktop) */
+.carousel-slide-1 {
+    background-image: url('../images/ashram-view.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.carousel-slide-2 {
+    background-image: url('../images/history-banner.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/* Portrait phones: keep `cover` and shift the crop sideways to pick which
+   part of the landscape banner is shown. A non-cover size (e.g. `200% auto`)
+   leaves the bottom of the slide unpainted, which reads as a white gap. */
+@media (orientation: portrait) and (max-width: 992px) {
+    /* ashram-view is the lit temple -- centres its front entrance */
+    .carousel-slide-1 {
+        background-position: 40% center;
+    }
+
+    /* history-banner is the group photo */
+    .carousel-slide-2 {
+        background-position: 50% center;
+    }
+}

@@ -201,10 +201,23 @@ body {
     padding: 0.5rem 0;
 }
 
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+/* Pointing devices only. On touch, :hover sticks to the tapped element until
+   something else is tapped, so a hover-opened menu can never be tapped shut.
+   The .active equivalent below is driven by the tap handler in script.js. */
+@media (hover: hover) {
+    .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+@media (hover: none) {
+    .dropdown.active > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-menu li {
@@ -245,10 +258,20 @@ body {
     transform: translateX(-10px);
 }
 
-.dropdown-menu .dropdown:hover > .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
+@media (hover: hover) {
+    .dropdown-menu .dropdown:hover > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+}
+
+@media (hover: none) {
+    .dropdown-menu .dropdown.active > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
 }
 
 .mobile-toggle {
@@ -862,13 +885,13 @@ footer {
         gap: 0.5rem;
     }
 
-    .top-info-bar .container {
+    header:not(.parmarth-style-header) .top-info-bar .container {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
     }
 
-    .top-bar-right {
+    header:not(.parmarth-style-header) .top-bar-right {
         width: 100%;
         justify-content: center;
     }
@@ -965,5 +988,124 @@ footer {
     .contact-info {
         flex-direction: column;
         gap: 0.5rem;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   Internal pages, PORTRAIT PHONES ONLY.
+
+   Arrangement here differs from every other viewport:
+     top bar  ->  contact/social icons | logo (centred) | menu toggle
+     menu bar ->  the search field, full width
+
+   Landscape phones and desktop are deliberately excluded and keep the
+   original design. Everything is also scoped with
+   :not(.parmarth-style-header), since style.css is shared with the home page.
+
+   The node moves are done by arrangeMobileHeader() in shared-navigation.js:
+   the search field and the toggle sit in different parents, and CSS `order`
+   can only reorder siblings.
+
+   Placed last so it overrides the earlier max-width: 768px blocks, which
+   wrapped this bar onto three rows and hid the social icons.
+   --------------------------------------------------------------------------- */
+@media (orientation: portrait) and (max-width: 768px) {
+    header:not(.parmarth-style-header) .top-bar .container {
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+        padding: 0 0.85rem;
+    }
+
+    /* Equal outer cells are what actually centre the logo; sizing them by
+       content leaves it wherever they happen to end. */
+    header:not(.parmarth-style-header) .top-bar-right,
+    header:not(.parmarth-style-header) .top-bar .mobile-toggle {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    header:not(.parmarth-style-header) .top-bar-right {
+        order: 1;
+        width: auto;
+        justify-content: flex-start;
+        gap: 2px;
+    }
+
+    header:not(.parmarth-style-header) .top-bar-center {
+        order: 2;
+        flex: 0 0 auto;
+    }
+
+    /* Static rather than absolute, so it becomes a flex item and the centring
+       above can account for its width. */
+    header:not(.parmarth-style-header) .top-bar .mobile-toggle {
+        order: 3;
+        position: static;
+        transform: none;
+        text-align: right;
+        line-height: 1;
+        color: var(--text-light);
+    }
+
+    /* the earlier 768px block hides these */
+    header:not(.parmarth-style-header) .social-icons {
+        display: flex;
+        gap: 2px;
+    }
+
+    header:not(.parmarth-style-header) .contact-icons {
+        gap: 2px;
+    }
+
+    header:not(.parmarth-style-header) .contact-icon,
+    header:not(.parmarth-style-header) .social-icon {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 auto;
+    }
+
+    header:not(.parmarth-style-header) .contact-icon svg,
+    header:not(.parmarth-style-header) .social-icon svg {
+        width: 11px;
+        height: 11px;
+    }
+
+    /* separates email from facebook */
+    header:not(.parmarth-style-header) .social-icons-divider {
+        height: 15px;
+        margin: 0 0.25rem;
+    }
+
+    /* Menu row. It carried the site's white nav background but, with the menu
+       list behind the toggle, that showed as an empty white band between the
+       header and the page -- so the header colour is carried through. */
+    header:not(.parmarth-style-header) nav {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        box-shadow: none;
+    }
+
+    header:not(.parmarth-style-header) nav .container {
+        padding: 0.5rem 0.85rem;
+    }
+
+    header:not(.parmarth-style-header) nav .top-bar-left {
+        flex: 1 1 auto;
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* a full row to itself, so it is finally a usable width */
+    header:not(.parmarth-style-header) .search-bar {
+        width: 100%;
+        max-width: none;
+    }
+
+    header:not(.parmarth-style-header) .search-bar input {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    header:not(.parmarth-style-header) .search-bar button {
+        padding: 0.5rem 0.8rem;
     }
 }

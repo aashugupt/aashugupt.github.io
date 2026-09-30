@@ -15,7 +15,14 @@
     z-index: 1000;
 }
 
-/* Cards will be shown via JavaScript on logo hover */
+/* Open state. Values match the inline styles this replaced, so the desktop
+   hover reveal renders identically. */
+.services-quick-access.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: all;
+}
 
 /* Ensure logo tooltip stays visible and on top */
 .central-logo::after {
@@ -284,6 +291,7 @@
     }
 }
 
+
 /* Responsive - Compact Cards */
 @media (max-width: 768px) {
     .services-grid {
@@ -306,5 +314,102 @@
     
     .service-card p {
         font-size: 0.7rem;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   Touch devices: break the panel out of the header.
+
+   The overlay is a child of .parmarth-style-header, which has a fixed height
+   and overflow:hidden -- so all but the first two rows of cards were being
+   clipped, not merely pushed off screen. Fixed positioning escapes that clip;
+   verified that no ancestor sets transform/filter/will-change, any of which
+   would have made the header a containing block and trapped it.
+
+   Excluded from pointing devices, so the desktop overlay is unchanged.
+   --------------------------------------------------------------------------- */
+@media (hover: none) {
+    .services-quick-access {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        padding: 0;
+        background: rgba(44, 24, 16, 0.93);
+        backdrop-filter: blur(10px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        transform: none;
+        z-index: 10000;
+    }
+
+    /* no translate to undo, so only the reveal properties change */
+    .services-quick-access.is-open {
+        transform: none;
+    }
+
+    .services-container {
+        width: 100%;
+        max-width: none;
+        padding: 3.5rem 0.9rem 1.5rem;
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(0, auto);
+        gap: 0.6rem;
+        margin-bottom: 0;
+    }
+
+    .service-card {
+        padding: 0.9rem 0.5rem;
+    }
+
+    /* Top left, not right: the top bar's contact/social icons sit in the
+       right half of the screen and the two collided.
+       Lives on <body>, not inside the panel -- see service-cards.js for why.
+       z-index must clear .top-info-bar (30), which is painted above the
+       panel and was intercepting taps on this corner. */
+    .services-close {
+        display: none;
+        position: fixed;
+        top: 0.4rem;
+        left: 0.5rem;
+        width: 60px;
+        height: 60px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: rgba(44, 24, 16, 0.55);
+        color: #FFD700;
+        font-size: 2.6rem;
+        line-height: 1;
+        cursor: pointer;
+        z-index: 10005;
+    }
+
+    body.services-open .services-close {
+        display: flex;
+    }
+}
+
+/* A short landscape screen cannot take four rows, so go wider instead. */
+@media (hover: none) and (orientation: landscape) {
+    .services-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0.5rem;
+    }
+
+    .services-container {
+        padding: 3rem 0.9rem 1rem;
+    }
+
+    .service-card {
+        padding: 0.7rem 0.4rem;
     }
 }

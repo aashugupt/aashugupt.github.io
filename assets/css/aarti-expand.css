@@ -9,8 +9,7 @@
     margin-top: 0;
 }
 
-/* Expand on hover OR when clicked (locked) */
-#aartiCard:hover,
+/* Expanded state, driven by the click toggle */
 #aartiCard.locked-expanded {
     grid-row: span 2;
     background: rgba(212, 175, 55, 0.15);
@@ -18,11 +17,29 @@
     box-shadow: 0 8px 30px rgba(212, 175, 55, 0.7);
 }
 
-#aartiCard:hover .aarti-expanded-content,
 #aartiCard.locked-expanded .aarti-expanded-content {
     max-height: 400px;
     opacity: 1;
     margin-top: 1rem;
+}
+
+/* Hover preview, for pointing devices only.
+   On touch, :hover sticks to a tapped element until something else is
+   tapped, so this rule would keep the card expanded after the click toggle
+   had already removed the class -- making a second tap appear to do nothing. */
+@media (hover: hover) {
+    #aartiCard:hover {
+        grid-row: span 2;
+        background: rgba(212, 175, 55, 0.15);
+        border-color: #FFD700;
+        box-shadow: 0 8px 30px rgba(212, 175, 55, 0.7);
+    }
+
+    #aartiCard:hover .aarti-expanded-content {
+        max-height: 400px;
+        opacity: 1;
+        margin-top: 1rem;
+    }
 }
 
 /* Time slot styling */
