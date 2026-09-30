@@ -209,8 +209,19 @@
     right: 2rem;
 }
 
-/* Portrait Mobile - Carousel Background Positioning */
+/* Portrait Mobile - Carousel Background Positioning & Height */
 @media (orientation: portrait) and (max-width: 768px) {
+    /* Reduce carousel height to avoid white gap */
+    .hero-carousel-section {
+        height: 50vh !important;
+        min-height: 400px !important;
+    }
+
+    .carousel-container {
+        height: 100% !important;
+    }
+
+    /* Image positioning */
     .carousel-slide-1 {
         background-position: 20% center !important;
         background-size: 200% auto !important;
