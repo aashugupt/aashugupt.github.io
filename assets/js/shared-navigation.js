@@ -156,7 +156,7 @@
         if (!document.querySelector('link[data-mobile-menu-css]')) {
             const css = document.createElement('link');
             css.rel = 'stylesheet';
-            css.href = 'assets/css/mobile-menu.css?v=1';
+            css.href = 'assets/css/mobile-menu.css?v=2';
             css.setAttribute('data-mobile-menu-css', '');
             document.head.appendChild(css);
         }
@@ -167,7 +167,7 @@
         }
 
         const script = document.createElement('script');
-        script.src = 'assets/js/mobile-menu.js?v=1';
+        script.src = 'assets/js/mobile-menu.js?v=2';
         document.body.appendChild(script);
     }
 

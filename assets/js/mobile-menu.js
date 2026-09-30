@@ -132,18 +132,37 @@
     }
 
     function buildSocial() {
-        var sources = document.querySelectorAll('.top-bar-right .social-icon');
-        if (!sources.length) return null;
+        // phone/email are .icon-contact on the home page but .contact-icon in
+        // shared-navigation.js -- similar names, different classes.
+        var contacts = document.querySelectorAll(
+            '.top-bar-right .icon-contact, .top-bar-right .contact-icon');
+        var socials = document.querySelectorAll('.top-bar-right .social-icon');
+        if (!contacts.length && !socials.length) return null;
 
         var wrap = document.createElement('div');
         wrap.className = 'mobile-menu-social';
-        for (var i = 0; i < sources.length; i++) {
-            var link = sources[i].cloneNode(true);
-            // drop .social-icon: its white-on-transparent styling is invisible here
-            link.removeAttribute('class');
-            link.removeAttribute('data-tooltip');
-            wrap.appendChild(link);
+
+        function addAll(list) {
+            for (var i = 0; i < list.length; i++) {
+                var link = list[i].cloneNode(true);
+                // the source styling is white on a translucent disc, which is
+                // invisible against this panel's cream background
+                link.removeAttribute('class');
+                link.removeAttribute('data-tooltip');
+                wrap.appendChild(link);
+            }
         }
+
+        addAll(contacts);
+
+        if (contacts.length && socials.length) {
+            var sep = document.createElement('span');
+            sep.className = 'sep';
+            sep.setAttribute('aria-hidden', 'true');
+            wrap.appendChild(sep);
+        }
+
+        addAll(socials);
         return wrap;
     }
 
@@ -163,10 +182,13 @@
 
         var logo = document.createElement('div');
         logo.className = 'mobile-menu-logo';
+        var disc = document.createElement('div');
+        disc.className = 'logo-disc';
         var img = document.createElement('img');
         img.src = LOGO_SRC;
         img.alt = 'Bada Bhaktmaal Ashram';
-        logo.appendChild(img);
+        disc.appendChild(img);
+        logo.appendChild(disc);
         panel.appendChild(logo);
 
         var nav = document.createElement('nav');
