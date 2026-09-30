@@ -2,20 +2,13 @@
 
 /* Default (landscape / desktop) */
 .carousel-slide-1 {
-    background-image: url('../images/hero-image.jpeg');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-
-.carousel-slide-2 {
     background-image: url('../images/ashram-view.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
 }
 
-.carousel-slide-3 {
+.carousel-slide-2 {
     background-image: url('../images/history-banner.jpg');
     background-size: cover;
     background-position: center center;
@@ -26,18 +19,13 @@
    part of the landscape banner is shown. A non-cover size (e.g. `200% auto`)
    leaves the bottom of the slide unpainted, which reads as a white gap. */
 @media (orientation: portrait) and (max-width: 992px) {
-    /* hero-image: clears the "B" of Bhaktmaal, which 22% cut in half */
-    .carousel-slide-1 {
-        background-position: 6% center;
-    }
-
     /* ashram-view is the lit temple -- centres its front entrance */
-    .carousel-slide-2 {
+    .carousel-slide-1 {
         background-position: 40% center;
     }
 
     /* history-banner is the group photo */
-    .carousel-slide-3 {
+    .carousel-slide-2 {
         background-position: 50% center;
     }
 }
