@@ -27,21 +27,21 @@
 
     /* Slide 1: Hero Image - Show left side with "Bada Bhaktmaal" text */
     .carousel-slide-1 {
-        background-position: left center;
-        background-size: auto 100%;
-        /* This will show more width by fitting to height */
+        background-position: 20% center !important;
+        background-size: 200% auto !important;
+        /* Zooms in 2x and shows left portion */
     }
 
-    /* Slide 2: Ashram View - Keep center positioning */
+    /* Slide 2: Ashram View - Show left side */
     .carousel-slide-2 {
-        background-position: center center;
-        background-size: auto 100%;
+        background-position: 20% center !important;
+        background-size: 200% auto !important;
     }
 
-    /* Slide 3: History Banner - Adjust as needed */
+    /* Slide 3: History Banner - Show left side */
     .carousel-slide-3 {
-        background-position: center center;
-        background-size: auto 100%;
+        background-position: 20% center !important;
+        background-size: 200% auto !important;
     }
 }
 

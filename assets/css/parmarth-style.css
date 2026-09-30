@@ -209,6 +209,24 @@
     right: 2rem;
 }
 
+/* Portrait Mobile - Carousel Background Positioning */
+@media (orientation: portrait) and (max-width: 768px) {
+    .carousel-slide-1 {
+        background-position: 20% center !important;
+        background-size: 200% auto !important;
+    }
+
+    .carousel-slide-2 {
+        background-position: 20% center !important;
+        background-size: 200% auto !important;
+    }
+
+    .carousel-slide-3 {
+        background-position: 20% center !important;
+        background-size: 200% auto !important;
+    }
+}
+
 /* Split Navigation with Central Logo - directly below top bar */
 .split-nav-container {
     position: absolute;
