@@ -386,10 +386,23 @@
     flex-direction: column;
 }
 
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+/* Hover opening is for pointing devices only. On touch, :hover sticks to the
+   tapped element, so a hover-opened menu can never be tapped shut. */
+@media (hover: hover) {
+    .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+/* Touch equivalent: .active is toggled by the tap handler in script.js */
+@media (hover: none) {
+    .dropdown.active > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-menu li {
@@ -438,10 +451,20 @@
     transform: translateX(-10px);
 }
 
-.dropdown-menu .dropdown:hover > .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
+@media (hover: hover) {
+    .dropdown-menu .dropdown:hover > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+}
+
+@media (hover: none) {
+    .dropdown-menu .dropdown.active > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
 }
 
 /* Mobile Toggle */

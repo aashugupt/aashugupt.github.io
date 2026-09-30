@@ -1,74 +1,91 @@
-// Service Cards Functionality
-(function() {
+// Service cards overlay.
+//
+// Visual state is a class rather than inline styles, so CSS can restyle the
+// panel per device (see the (hover: none) block in service-cards.css) without
+// inline styles overriding it.
+(function () {
     'use strict';
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get elements
-        const centralLogo = document.querySelector('.central-logo');
-        const serviceCards = document.querySelector('.services-quick-access');
-        const aartiModal = document.getElementById('aartiModal');
-        const aartiCard = document.getElementById('aartiCard');
-        const closeModal = document.querySelector('.modal-close');
+    document.addEventListener('DOMContentLoaded', function () {
+        var logo = document.querySelector('.central-logo');
+        var panel = document.querySelector('.services-quick-access');
+        var aarti = document.getElementById('aartiCard');
+        var canHover = window.matchMedia('(hover: hover)').matches;
 
-        // Show/Hide service cards on logo hover
-        if (centralLogo && serviceCards) {
-            let hideTimeout;
-
-            // Show cards when hovering logo
-            centralLogo.addEventListener('mouseenter', function() {
-                clearTimeout(hideTimeout);
-                serviceCards.style.opacity = '1';
-                serviceCards.style.visibility = 'visible';
-                serviceCards.style.transform = 'translateY(0)';
-                serviceCards.style.pointerEvents = 'all';
-                console.log('✅ Service cards shown');
-            });
-
-            // Keep cards visible when hovering them
-            serviceCards.addEventListener('mouseenter', function() {
-                clearTimeout(hideTimeout);
-            });
-
-            // Hide cards when leaving logo
-            centralLogo.addEventListener('mouseleave', function() {
-                hideTimeout = setTimeout(function() {
-                    serviceCards.style.opacity = '0';
-                    serviceCards.style.visibility = 'hidden';
-                    serviceCards.style.transform = 'translateY(-20px)';
-                    serviceCards.style.pointerEvents = 'none';
-                }, 300);
-            });
-
-            // Hide cards when leaving the cards area
-            serviceCards.addEventListener('mouseleave', function() {
-                hideTimeout = setTimeout(function() {
-                    serviceCards.style.opacity = '0';
-                    serviceCards.style.visibility = 'hidden';
-                    serviceCards.style.transform = 'translateY(-20px)';
-                    serviceCards.style.pointerEvents = 'none';
-                }, 300);
-            });
+        function open() {
+            if (panel) panel.classList.add('is-open');
         }
 
-        // Hover to expand, Click to lock expansion
-        if (aartiCard) {
-            // Click to lock/unlock expansion
-            aartiCard.addEventListener('click', function(e) {
+        function close() {
+            if (panel) panel.classList.remove('is-open');
+            if (aarti) aarti.classList.remove('locked-expanded');
+        }
+
+        if (logo && panel) {
+            if (canHover) {
+                // Pointing devices: unchanged reveal-on-hover behaviour.
+                var hideTimer;
+
+                logo.addEventListener('mouseenter', function () {
+                    clearTimeout(hideTimer);
+                    open();
+                });
+
+                panel.addEventListener('mouseenter', function () {
+                    clearTimeout(hideTimer);
+                });
+
+                logo.addEventListener('mouseleave', function () {
+                    hideTimer = setTimeout(close, 300);
+                });
+
+                panel.addEventListener('mouseleave', function () {
+                    hideTimer = setTimeout(close, 300);
+                });
+            } else {
+                // Touch: a tap synthesises mouseenter but nothing ever fires
+                // mouseleave, so the panel needs an explicit toggle to close.
+                logo.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (panel.classList.contains('is-open')) {
+                        close();
+                    } else {
+                        open();
+                    }
+                });
+
+                // The panel covers the screen on touch, so it needs a visible
+                // way out.
+                var closeBtn = document.createElement('button');
+                closeBtn.type = 'button';
+                closeBtn.className = 'services-close';
+                closeBtn.setAttribute('aria-label', 'Close services');
+                closeBtn.innerHTML = '&times;';
+                closeBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    close();
+                });
+                panel.appendChild(closeBtn);
+
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') close();
+                });
+            }
+        }
+
+        if (aarti) {
+            aarti.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-
-                // Toggle locked state
-                aartiCard.classList.toggle('locked-expanded');
+                aarti.classList.toggle('locked-expanded');
             });
 
-            // Close locked state when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!aartiCard.contains(e.target) && aartiCard.classList.contains('locked-expanded')) {
-                    aartiCard.classList.remove('locked-expanded');
+            document.addEventListener('click', function (e) {
+                if (!aarti.contains(e.target) && aarti.classList.contains('locked-expanded')) {
+                    aarti.classList.remove('locked-expanded');
                 }
             });
         }
-
-        console.log('✅ Service cards initialized');
     });
 })();

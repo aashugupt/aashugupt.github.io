@@ -50,14 +50,5 @@ document.addEventListener('DOMContentLoaded', function() {
         startAutoPlay();
     }
 
-    // Dropdown toggle for mobile
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                this.classList.toggle('active');
-            }
-        });
-    });
+    // Dropdown tapping is handled in script.js, which every page loads.
 });
