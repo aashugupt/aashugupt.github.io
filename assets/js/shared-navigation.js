@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="top-bar-left">
                     <div class="search-bar">
-                        <input type="text" placeholder="Search..." id="site-search-input">
+                        <input type="text" placeholder="Search..." data-i18n="nav.search.placeholder" data-i18n-attr="placeholder" id="site-search-input">
                         <button type="button" id="site-search-button">🔍</button>
                     </div>
                 </div>
@@ -58,77 +58,86 @@
                             </svg>
                         </a>
                     </div>
+                    <div class="social-icons-divider"></div>
+                    <div class="lang-switcher" role="group" aria-label="Language">
+                        <span class="lang-chip" aria-hidden="true">EN</span>
+                        <div class="lang-panel">
+                            <button type="button" class="lang-opt" data-lang="en">English</button>
+                            <span class="lang-sep" aria-hidden="true">·</span>
+                            <button type="button" class="lang-opt" data-lang="hi">हिंदी</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <nav>
             <div class="container">
                 <ul class="nav-menu">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html" data-i18n="nav.home">Home</a></li>
                     <li class="dropdown">
-                        <a href="#about">About Us ▾</a>
+                        <a href="#about"><span data-i18n="nav.about">About Us</span> ▾</a>
                         <ul class="dropdown-menu">
                             <li class="dropdown">
-                                <a href="#about-ashram">About Ashram</a>
+                                <a href="#about-ashram" data-i18n="nav.about.ashram">About Ashram</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="vision.html">Our Vision</a></li>
-                                    <li><a href="history.html">Our History</a></li>
-                                    <li><a href="gaushala.html">Our Gaushala</a></li>
-                                    <li><a href="gurukul.html">Gurukul</a></li>
-                                    <li><a href="trust.html">Trust</a></li>
-                                    <li><a href="accommodation.html">Accommodation</a></li>
+                                    <li><a href="vision.html" data-i18n="nav.about.vision">Our Vision</a></li>
+                                    <li><a href="history.html" data-i18n="nav.about.history">Our History</a></li>
+                                    <li><a href="gaushala.html" data-i18n="nav.about.gaushala">Our Gaushala</a></li>
+                                    <li><a href="gurukul.html" data-i18n="nav.about.gurukul">Gurukul</a></li>
+                                    <li><a href="trust.html" data-i18n="nav.about.trust">Trust</a></li>
+                                    <li><a href="accommodation.html" data-i18n="nav.about.accommodation">Accommodation</a></li>
                                 </ul>
                             </li>
-                            <li><a href="facilities.html">Facilities</a></li>
-                            <li><a href="guidelines.html">Guidelines</a></li>
-                            <li><a href="visiting.html">Visiting to the Ashram</a></li>
-                            <li><a href="associated-centers.html">Associated Centers</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="facilities.html" data-i18n="nav.about.facilities">Facilities</a></li>
+                            <li><a href="guidelines.html" data-i18n="nav.about.guidelines">Guidelines</a></li>
+                            <li><a href="visiting.html" data-i18n="nav.about.visiting">Visiting to the Ashram</a></li>
+                            <li><a href="associated-centers.html" data-i18n="nav.about.centers">Associated Centers</a></li>
+                            <li><a href="contact.html" data-i18n="nav.about.contact">Contact</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#our-sevas">Our Sevas ▾</a>
+                        <a href="#our-sevas"><span data-i18n="nav.sevas">Our Sevas</span> ▾</a>
                         <ul class="dropdown-menu">
                             <li class="dropdown">
-                                <a href="#satkarm">Satkarm</a>
+                                <a href="#satkarm" data-i18n="nav.sevas.satkarm">Satkarm</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="gurukul.html">Gurukul</a></li>
-                                    <li><a href="healthcare.html">Healthcare</a></li>
-                                    <li><a href="serene-programs.html">Serene Programs</a></li>
-                                    <li><a href="education.html">Education</a></li>
-                                    <li><a href="bhandara.html">Bhandara</a></li>
-                                    <li><a href="how-can-you-help.html">How Can You Help</a></li>
+                                    <li><a href="gurukul.html" data-i18n="nav.sevas.gurukul">Gurukul</a></li>
+                                    <li><a href="healthcare.html" data-i18n="nav.sevas.healthcare">Healthcare</a></li>
+                                    <li><a href="serene-programs.html" data-i18n="nav.sevas.serene">Serene Programs</a></li>
+                                    <li><a href="education.html" data-i18n="nav.sevas.education">Education</a></li>
+                                    <li><a href="bhandara.html" data-i18n="nav.sevas.bhandara">Bhandara</a></li>
+                                    <li><a href="how-can-you-help.html" data-i18n="nav.sevas.help">How Can You Help</a></li>
                                 </ul>
                             </li>
-                            <li><a href="daily-schedule.html">Daily Ashram Schedule</a></li>
-                            <li><a href="blessings.html">Blessings and Messages</a></li>
-                            <li><a href="satsang.html">Satsang</a></li>
+                            <li><a href="daily-schedule.html" data-i18n="nav.sevas.schedule">Daily Ashram Schedule</a></li>
+                            <li><a href="blessings.html" data-i18n="nav.sevas.blessings">Blessings and Messages</a></li>
+                            <li><a href="satsang.html" data-i18n="nav.sevas.satsang">Satsang</a></li>
                             <li class="dropdown">
-                                <a href="#sanskara">Sanskara</a>
+                                <a href="#sanskara" data-i18n="nav.sevas.sanskara">Sanskara</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="yagnopavit.html">Yagnopavit (Upnayan sanskara)</a></li>
-                                    <li><a href="diksha.html">Diksha</a></li>
-                                    <li><a href="vivah-sanskara.html">Vivah Sanskara</a></li>
+                                    <li><a href="yagnopavit.html" data-i18n="nav.sevas.yagnopavit">Yagnopavit (Upnayan sanskara)</a></li>
+                                    <li><a href="diksha.html" data-i18n="nav.sevas.diksha">Diksha</a></li>
+                                    <li><a href="vivah-sanskara.html" data-i18n="nav.sevas.vivah">Vivah Sanskara</a></li>
                                 </ul>
                             </li>
-                            <li><a href="cow-protection.html">Cow Protection</a></li>
+                            <li><a href="cow-protection.html" data-i18n="nav.sevas.cow">Cow Protection</a></li>
                         </ul>
                     </li>
-                    <li><a href="guruji.html">Spiritual Guides</a></li>
-                    <li><a href="news.html">News</a></li>
-                    <li><a href="services.html">Events</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="accommodation.html">Stay With Us</a></li>
+                    <li><a href="guruji.html" data-i18n="nav.guruji">Spiritual Guides</a></li>
+                    <li><a href="news.html" data-i18n="nav.news">News</a></li>
+                    <li><a href="services.html" data-i18n="nav.events">Events</a></li>
+                    <li><a href="gallery.html" data-i18n="nav.gallery">Gallery</a></li>
+                    <li><a href="accommodation.html" data-i18n="nav.stay">Stay With Us</a></li>
                     <li class="dropdown">
-                        <a href="#downloads">Downloads ▾</a>
+                        <a href="#downloads"><span data-i18n="nav.downloads">Downloads</span> ▾</a>
                         <ul class="dropdown-menu">
-                            <li><a href="wallpapers.html">Wallpapers</a></li>
-                            <li><a href="kirtans.html">Kirtans</a></li>
-                            <li><a href="quotes.html">Quotes</a></li>
-                            <li><a href="audio.html">Audio</a></li>
+                            <li><a href="wallpapers.html" data-i18n="nav.downloads.wallpapers">Wallpapers</a></li>
+                            <li><a href="kirtans.html" data-i18n="nav.downloads.kirtans">Kirtans</a></li>
+                            <li><a href="quotes.html" data-i18n="nav.downloads.quotes">Quotes</a></li>
+                            <li><a href="audio.html" data-i18n="nav.downloads.audio">Audio</a></li>
                         </ul>
                     </li>
-                    <li><a href="#donate" class="btn-donate-nav">Donate</a></li>
+                    <li><a href="#donate" class="btn-donate-nav" data-i18n="nav.donate">Donate</a></li>
                 </ul>
                 <div class="mobile-toggle">☰</div>
             </div>
@@ -154,6 +163,10 @@
             // After the nav, so AOS measures its offsets against the finished
             // layout rather than the page's pre-injection height.
             loadScrollAnimations();
+
+            // Locale engine — runs after nav injection so [data-i18n] elements
+            // in the nav are already in the DOM when i18n.js calls apply().
+            loadI18n();
         }
     });
 
@@ -211,6 +224,14 @@
 
         const script = document.createElement('script');
         script.src = 'assets/js/mobile-menu.js?v=2';
+        document.body.appendChild(script);
+    }
+
+    function loadI18n() {
+        if (document.querySelector('script[data-i18n-engine]')) return;
+        const script = document.createElement('script');
+        script.src = 'assets/js/i18n.js?v=1';
+        script.setAttribute('data-i18n-engine', '');
         document.body.appendChild(script);
     }
 

@@ -50,6 +50,15 @@
         var link = document.createElement('a');
         link.setAttribute('href', srcLink.getAttribute('href') || '#');
         link.textContent = cleanLabel(srcLink.textContent);
+        // Copy i18n key so locale switches update panel text without a rebuild.
+        // The key may be on srcLink directly, or on an inner <span> (used for
+        // links that also carry a caret outside the translatable text).
+        var i18nKey = srcLink.getAttribute('data-i18n');
+        if (!i18nKey) {
+            var i18nChild = srcLink.querySelector('[data-i18n]');
+            if (i18nChild) i18nKey = i18nChild.getAttribute('data-i18n');
+        }
+        if (i18nKey) link.setAttribute('data-i18n', i18nKey);
         if (srcLink.classList.contains('btn-donate-nav')) li.classList.add('is-donate');
         if (srcLink.classList.contains('active')) li.classList.add('is-current');
         row.appendChild(link);

@@ -1,0 +1,161 @@
+/* Language switcher — desktop vertical expand-in-place, mobile panel toggle.
+ * Loaded dynamically by i18n.js; never linked in any HTML file directly.
+ *
+ * Desktop (all pages): a compact chip ("EN" / "हिं") sits in the top bar.
+ * Hovering expands it downward in-place into a stacked language list.
+ * Brown background on internal pages; orange on the home page (--home).
+ *
+ * Mobile: a two-button row injected at the top of the mobile menu panel.
+ */
+
+/* ── Desktop switcher ─────────────────────────────────────────────────────── */
+
+.lang-switcher {
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: inherit;
+    /* Reserve the chip's width so the flex row never reflows */
+    min-width: 2.2rem;
+    /* Removes 300ms tap delay on mobile without needing touchstart events */
+    touch-action: manipulation;
+}
+
+.lang-chip {
+    display: block;
+    text-align: center;
+    transition: opacity 0.15s;
+    user-select: none;
+    pointer-events: none;
+    padding-top: 0.05rem;
+}
+
+.lang-panel {
+    /* Absolutely positioned — does not affect flex-row layout.
+     * Anchored to the chip's top-right corner, expands downward.
+     * z-index keeps it above the nav row that sits below the top bar. */
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 200;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    min-width: 5.5rem;
+    padding: 0.2rem 0;
+
+    background: #3d1a0a;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+
+    /* Grow downward from the top edge.
+     * Delay on CLOSING so the mouse has time to reach panel items
+     * before :hover is lost — prevents the panel snapping shut mid-move. */
+    clip-path: inset(0 0 100% 0 round 4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: clip-path 0.25s ease 0.12s, opacity 0.18s 0.12s;
+}
+
+/* Desktop hover: chip fades, panel expands down — opening has no delay.
+ *
+ * MUST stay inside @media (hover: hover). On touch devices :hover is STICKY --
+ * tapping an element applies :hover and keeps it applied until the user taps
+ * elsewhere. Unscoped, this rule holds the panel open after a language tap
+ * (the tap is inside .lang-switcher, so hover never clears) and no amount of
+ * JS class removal can close it. */
+@media (hover: hover) {
+    .lang-switcher:hover .lang-chip { opacity: 0; }
+
+    .lang-switcher:hover .lang-panel {
+        clip-path: inset(0 0 0% 0 round 4px);
+        opacity: 1;
+        pointer-events: auto;
+        transition: clip-path 0.25s ease, opacity 0.18s;
+    }
+}
+
+/* Touch devices (mobile portrait + landscape): JS adds .is-open on chip tap
+ * and removes it on selection / outside tap. This is the only thing driving
+ * the panel on touch, since the :hover rules above don't apply there. */
+.lang-switcher.is-open .lang-chip { opacity: 0; }
+.lang-switcher.is-open .lang-panel {
+    clip-path: inset(0 0 0% 0 round 4px);
+    opacity: 1;
+    pointer-events: auto;
+    transition: clip-path 0.25s ease, opacity 0.18s;
+}
+
+/* Dot separator is for horizontal layout — hidden in vertical */
+.lang-sep { display: none; }
+
+/* ── Shared: .lang-opt buttons ───────────────────────────────────────────── */
+
+.lang-opt {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+    padding: 0.4rem 0.75rem;
+    text-align: left;
+    width: 100%;
+    border-radius: 0;
+    transition: color 0.15s, background 0.15s;
+    letter-spacing: 0.04em;
+    touch-action: manipulation;
+}
+
+.lang-opt:first-child { border-radius: 4px 4px 0 0; }
+.lang-opt:last-child  { border-radius: 0 0 4px 4px; }
+
+/* Hover highlight only where hover is real — sticky hover on touch would
+ * otherwise leave the tapped option permanently highlighted. */
+@media (hover: hover) {
+    .lang-opt:hover { color: #fff; background: rgba(255,255,255,0.12); }
+}
+
+.lang-opt--active { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+
+/* ── Home page: orange background only ────────────────────────────────────── */
+
+.lang-switcher--home .lang-panel {
+    background: #f7931e;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.22);
+}
+
+/* ── Mobile panel toggle ──────────────────────────────────────────────────── */
+
+.mobile-lang-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mobile-lang-toggle .lang-opt {
+    color: inherit;
+    opacity: 0.65;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    width: auto;
+    transition: opacity 0.15s, background 0.15s;
+}
+
+@media (hover: hover) {
+    .mobile-lang-toggle .lang-opt:hover { opacity: 1; background: rgba(0,0,0,0.06); }
+}
+
+.mobile-lang-toggle .lang-opt--active { opacity: 1; background: rgba(0,0,0,0.08); }
