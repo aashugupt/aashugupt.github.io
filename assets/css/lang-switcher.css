@@ -62,10 +62,22 @@
     transition: clip-path 0.25s ease 0.12s, opacity 0.18s 0.12s;
 }
 
-/* On hover: chip fades, panel expands down — opening has no delay */
+/* Desktop hover: chip fades, panel expands down — opening has no delay */
 .lang-switcher:hover .lang-chip { opacity: 0; }
 
 .lang-switcher:hover .lang-panel {
+    clip-path: inset(0 0 0% 0 round 4px);
+    opacity: 1;
+    pointer-events: auto;
+    transition: clip-path 0.25s ease, opacity 0.18s;
+}
+
+/* Touch devices (mobile portrait + landscape): JS detects touch and adds
+ * .is-open so the panel stays visible between the first tap (open) and the
+ * second tap (select language). :hover alone can't do this on touch because
+ * browsers release hover state immediately after touchend. */
+.lang-switcher.is-open .lang-chip { opacity: 0; }
+.lang-switcher.is-open .lang-panel {
     clip-path: inset(0 0 0% 0 round 4px);
     opacity: 1;
     pointer-events: auto;
