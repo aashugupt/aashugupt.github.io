@@ -15,7 +15,7 @@
 
     var STORAGE_KEY = 'bba-locale';
     var SUPPORTED   = ['en', 'hi'];
-    var DEFAULT     = 'en';
+    var DEFAULT     = 'hi';
     var BASE        = 'assets/locales/';
     var SWITCHER_CSS = 'assets/css/lang-switcher.css?v=1';
 
