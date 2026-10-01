@@ -878,6 +878,32 @@ footer {
     opacity: 0.8;
 }
 
+/* Mobile portrait: About Ashram full width, then Ashram Links + Useful Links side by side */
+@media (orientation: portrait) and (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    .footer-col:nth-child(1) {
+        grid-column: 1 / -1;
+        margin-bottom: 1rem;
+    }
+
+    .footer-col:nth-child(2) {
+        grid-column: 1;
+    }
+
+    .footer-col:nth-child(3) {
+        grid-column: 2;
+    }
+
+    .footer-col:nth-child(4) {
+        grid-column: 1 / -1;
+        margin-top: 1rem;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .top-bar-left {
