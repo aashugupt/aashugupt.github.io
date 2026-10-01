@@ -191,12 +191,15 @@
         document.head.appendChild(link);
     }
 
-    // ── Touch detection ───────────────────────────────────────────────────────
-    // Desktop keeps pure CSS :hover; touch devices use JS-toggled .is-open.
-    // touch-action:manipulation on .lang-switcher/.lang-opt (in CSS) removes
-    // the 300ms tap delay on mobile so plain click events work here — no
-    // touchstart / ghost-click complexity needed.
-    var touchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    // ── Touch vs hover ────────────────────────────────────────────────────────
+    // Keyed off the SAME media feature the stylesheet uses: the CSS :hover
+    // rules live in @media (hover: hover), so when hover is unavailable this
+    // returns true and .is-open becomes the only thing driving the panel.
+    // Exactly one mechanism is active at a time, by construction.
+    // Evaluated per-click so attaching a mouse mid-session is handled.
+    function noHover() {
+        return window.matchMedia && window.matchMedia('(hover: none)').matches;
+    }
 
     // ── Event delegation for switcher clicks ──────────────────────────────────
 
@@ -211,18 +214,18 @@
         var switcher = e.target.closest('.lang-switcher');
         var btn      = e.target.closest('.lang-opt[data-lang]');
 
-        // Language option clicked/tapped — select locale
+        // Language option clicked/tapped — select locale, then collapse the
+        // flyout back to the chip (no-op on hover devices, nothing is open).
         if (btn) {
             setLocale(btn.getAttribute('data-lang'));
             btn.blur();
-            // On touch: close the flyout after selection
-            if (touchDevice) closeSwitchers();
+            closeSwitchers();
             return;
         }
 
         // Touch only: tap on chip area toggles panel open/closed.
         // .lang-chip has pointer-events:none so click lands on .lang-switcher.
-        if (touchDevice && switcher && !e.target.closest('.lang-panel')) {
+        if (noHover() && switcher && !e.target.closest('.lang-panel')) {
             switcher.classList.toggle('is-open');
             return;
         }

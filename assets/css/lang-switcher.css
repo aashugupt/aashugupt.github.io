@@ -64,20 +64,27 @@
     transition: clip-path 0.25s ease 0.12s, opacity 0.18s 0.12s;
 }
 
-/* Desktop hover: chip fades, panel expands down — opening has no delay */
-.lang-switcher:hover .lang-chip { opacity: 0; }
+/* Desktop hover: chip fades, panel expands down — opening has no delay.
+ *
+ * MUST stay inside @media (hover: hover). On touch devices :hover is STICKY --
+ * tapping an element applies :hover and keeps it applied until the user taps
+ * elsewhere. Unscoped, this rule holds the panel open after a language tap
+ * (the tap is inside .lang-switcher, so hover never clears) and no amount of
+ * JS class removal can close it. */
+@media (hover: hover) {
+    .lang-switcher:hover .lang-chip { opacity: 0; }
 
-.lang-switcher:hover .lang-panel {
-    clip-path: inset(0 0 0% 0 round 4px);
-    opacity: 1;
-    pointer-events: auto;
-    transition: clip-path 0.25s ease, opacity 0.18s;
+    .lang-switcher:hover .lang-panel {
+        clip-path: inset(0 0 0% 0 round 4px);
+        opacity: 1;
+        pointer-events: auto;
+        transition: clip-path 0.25s ease, opacity 0.18s;
+    }
 }
 
-/* Touch devices (mobile portrait + landscape): JS detects touch and adds
- * .is-open so the panel stays visible between the first tap (open) and the
- * second tap (select language). :hover alone can't do this on touch because
- * browsers release hover state immediately after touchend. */
+/* Touch devices (mobile portrait + landscape): JS adds .is-open on chip tap
+ * and removes it on selection / outside tap. This is the only thing driving
+ * the panel on touch, since the :hover rules above don't apply there. */
 .lang-switcher.is-open .lang-chip { opacity: 0; }
 .lang-switcher.is-open .lang-panel {
     clip-path: inset(0 0 0% 0 round 4px);
@@ -111,7 +118,12 @@
 .lang-opt:first-child { border-radius: 4px 4px 0 0; }
 .lang-opt:last-child  { border-radius: 0 0 4px 4px; }
 
-.lang-opt:hover   { color: #fff; background: rgba(255,255,255,0.12); }
+/* Hover highlight only where hover is real — sticky hover on touch would
+ * otherwise leave the tapped option permanently highlighted. */
+@media (hover: hover) {
+    .lang-opt:hover { color: #fff; background: rgba(255,255,255,0.12); }
+}
+
 .lang-opt--active { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
 
 /* ── Home page: orange background only ────────────────────────────────────── */
@@ -142,5 +154,8 @@
     transition: opacity 0.15s, background 0.15s;
 }
 
-.mobile-lang-toggle .lang-opt:hover   { opacity: 1; background: rgba(0,0,0,0.06); }
+@media (hover: hover) {
+    .mobile-lang-toggle .lang-opt:hover { opacity: 1; background: rgba(0,0,0,0.06); }
+}
+
 .mobile-lang-toggle .lang-opt--active { opacity: 1; background: rgba(0,0,0,0.08); }
