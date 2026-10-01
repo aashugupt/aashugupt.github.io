@@ -230,7 +230,7 @@
     function loadI18n() {
         if (document.querySelector('script[data-i18n-engine]')) return;
         const script = document.createElement('script');
-        script.src = 'assets/js/i18n.js?v=1';
+        script.src = 'assets/js/i18n.js?v=2';
         script.setAttribute('data-i18n-engine', '');
         document.body.appendChild(script);
     }
