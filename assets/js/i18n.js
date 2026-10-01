@@ -192,8 +192,10 @@
     }
 
     // ── Touch detection ───────────────────────────────────────────────────────
-    // Only use is-open toggle on genuine touch devices. Desktop (mouse) keeps
-    // pure CSS :hover so we never add is-open there and the styles never fire.
+    // Desktop keeps pure CSS :hover; touch devices use JS-toggled .is-open.
+    // touch-action:manipulation on .lang-switcher/.lang-opt (in CSS) removes
+    // the 300ms tap delay on mobile so plain click events work here — no
+    // touchstart / ghost-click complexity needed.
     var touchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
     // ── Event delegation for switcher clicks ──────────────────────────────────
@@ -205,45 +207,29 @@
         );
     }
 
-    // Use touchstart on touch devices for instant response; click on desktop.
-    var tapEvent = touchDevice ? 'touchstart' : 'click';
+    document.addEventListener('click', function (e) {
+        var switcher = e.target.closest('.lang-switcher');
+        var btn      = e.target.closest('.lang-opt[data-lang]');
 
-    document.addEventListener(tapEvent, function (e) {
-        var target   = e.touches ? e.touches[0].target : e.target;
-        var switcher = target.closest ? target.closest('.lang-switcher') : null;
-        var btn      = target.closest ? target.closest('.lang-opt[data-lang]') : null;
-
-        // Language option tapped — select locale and close the panel
+        // Language option clicked/tapped — select locale
         if (btn) {
-            // Prevent the ghost click that fires ~300ms after touchstart
-            if (e.type === 'touchstart') e.preventDefault();
             setLocale(btn.getAttribute('data-lang'));
             btn.blur();
-            closeSwitchers();
+            // On touch: close the flyout after selection
+            if (touchDevice) closeSwitchers();
             return;
         }
 
-        // Chip tapped on a touch device — toggle the panel open/closed.
-        // .lang-chip has pointer-events:none so the touch target is .lang-switcher.
-        if (touchDevice && switcher && !(target.closest('.lang-panel'))) {
-            if (e.type === 'touchstart') e.preventDefault();
+        // Touch only: tap on chip area toggles panel open/closed.
+        // .lang-chip has pointer-events:none so click lands on .lang-switcher.
+        if (touchDevice && switcher && !e.target.closest('.lang-panel')) {
             switcher.classList.toggle('is-open');
             return;
         }
 
-        // Tapped/clicked outside — close any open panel
+        // Clicked/tapped outside — close any open panel
         if (!switcher) closeSwitchers();
     });
-
-    // Desktop click handler: language selection only (no is-open toggling)
-    if (!touchDevice) {
-        document.addEventListener('click', function (e) {
-            var btn = e.target.closest('.lang-opt[data-lang]');
-            if (!btn) return;
-            setLocale(btn.getAttribute('data-lang'));
-            btn.blur();
-        });
-    }
 
     // ── Public API ────────────────────────────────────────────────────────────
 
