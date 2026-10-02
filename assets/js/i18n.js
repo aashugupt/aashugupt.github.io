@@ -19,8 +19,16 @@
     var BASE        = 'assets/locales/';
     var SWITCHER_CSS = 'assets/css/lang-switcher.css?v=1';
 
-    var current = localStorage.getItem(STORAGE_KEY) || DEFAULT;
+    // Force Hindi on small devices where language switcher is hidden (≤392px)
+    // User cannot change language when switcher is hidden, so enforce default
+    var isSmallDevice = window.innerWidth <= 392;
+    var current = isSmallDevice ? DEFAULT : (localStorage.getItem(STORAGE_KEY) || DEFAULT);
     if (SUPPORTED.indexOf(current) === -1) current = DEFAULT;
+    
+    // Clear localStorage on small devices to prevent English from sticking
+    if (isSmallDevice && localStorage.getItem(STORAGE_KEY) !== DEFAULT) {
+        localStorage.setItem(STORAGE_KEY, DEFAULT);
+    }
 
     var strings = {};
 
