@@ -66,19 +66,20 @@
 
 /* ========================================================================
    UNIVERSAL OVERFLOW PREVENTION - Applies to ALL screen sizes
-   Safety net: Nothing can ever flow out of the viewport
+
+   No overflow-x: hidden anywhere in here, deliberately. Per the CSS
+   overflow spec, when one axis is not `visible` the other computes from
+   `visible` to `auto` -- so `overflow-x: hidden` alone silently turns the
+   bar into a scroll container, which put a vertical scrollbar inside the
+   top bar on desktop and would have clipped the language panel and the
+   nav dropdowns, since both are absolutely positioned children.
+
+   Overflow is prevented at the source instead: the shrink rules below let
+   the flexible parts give way before anything can reach the edge.
    ======================================================================== */
 
-/* Home page (Parmarth style) - Only hide overflow on portrait, not landscape */
+/* Home page (Parmarth style) */
 @media (orientation: portrait) {
-    .parmarth-style-header .top-bar {
-        overflow-x: hidden !important;
-    }
-
-    .parmarth-style-header nav {
-        overflow-x: hidden !important;
-    }
-
     .parmarth-style-header .top-bar .container,
     .parmarth-style-header nav ul {
         flex-wrap: nowrap !important;
@@ -94,10 +95,6 @@
 }
 
 /* Internal pages */
-header:not(.parmarth-style-header) .top-bar {
-    overflow-x: hidden !important;
-}
-
 header:not(.parmarth-style-header) .top-bar .container {
     flex-wrap: nowrap !important;
 }
@@ -755,4 +752,28 @@ header:not(.parmarth-style-header) .top-logo {
 
 #aartiCard.locked-expanded .aarti-expanded-content::-webkit-scrollbar-thumb:hover {
     background: rgba(212, 175, 55, 0.8);
+}
+
+/* ========================================================================
+   Redmi Note 12 portrait: hide the language chip on internal pages, where
+   it lands between the Twitter and YouTube icons and crowds them.
+
+   Deliberately NOT paired with a forced locale in i18n.js. The chip is the
+   only way to switch language -- the mobile menu has none -- and it stays
+   visible on this device in landscape, so a choice made there has to
+   survive the rotation, which means portrait keeps reading localStorage.
+   Forcing is reserved for <=392px, where the chip is hidden in every
+   orientation and a stale 'en' would otherwise strand the user.
+
+   Ceiling is 411px: Motorola Edge 50 Ultra portrait is 412px and keeps it.
+   ======================================================================== */
+@media (min-width: 393px) and (max-width: 411px) and (orientation: portrait) {
+    header:not(.parmarth-style-header) .lang-switcher {
+        display: none !important;
+    }
+
+    /* Sits immediately before the chip, so it would dangle at the row end. */
+    header:not(.parmarth-style-header) .social-icons-divider {
+        display: none !important;
+    }
 }
