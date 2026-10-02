@@ -144,16 +144,33 @@
         // Update button states
         updateButtonStates();
 
+        // Update Media Session API metadata for lock screen / notification controls
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: track.title,
+                artist: track.subtitle,
+                album: 'Bada Bhaktmaal Ashram',
+                artwork: [
+                    { src: track.artwork || 'assets/images/logo.png', sizes: '96x96', type: 'image/png' },
+                    { src: track.artwork || 'assets/images/logo.png', sizes: '128x128', type: 'image/png' },
+                    { src: track.artwork || 'assets/images/logo.png', sizes: '192x192', type: 'image/png' },
+                    { src: track.artwork || 'assets/images/logo.png', sizes: '256x256', type: 'image/png' },
+                    { src: track.artwork || 'assets/images/logo.png', sizes: '384x384', type: 'image/png' },
+                    { src: track.artwork || 'assets/images/logo.png', sizes: '512x512', type: 'image/png' }
+                ]
+            });
+        }
+
         // Save state
         saveState();
 
         console.log('Loaded track:', track.title);
     }
 
-    // Update prev/next button states
+    // Update prev/next button states (always enabled for loop playback)
     function updateButtonStates() {
-        prevBtn.disabled = currentTrackIndex === 0;
-        nextBtn.disabled = currentTrackIndex === playlist.length - 1;
+        prevBtn.disabled = false;
+        nextBtn.disabled = false;
     }
 
     // Toggle play/pause
@@ -255,20 +272,22 @@
         }
     }
 
-    // Previous track - always auto-play
+    // Previous track - loop to last if at first
     function previousTrack() {
-        if (currentTrackIndex > 0) {
-            loadTrack(currentTrackIndex - 1);
-            audio.play().catch(err => console.log('Play prevented:', err));
-        }
+        const newIndex = currentTrackIndex > 0
+            ? currentTrackIndex - 1
+            : playlist.length - 1;
+        loadTrack(newIndex);
+        audio.play().catch(err => console.log('Play prevented:', err));
     }
 
-    // Next track - always auto-play
+    // Next track - loop to first if at last
     function nextTrack() {
-        if (currentTrackIndex < playlist.length - 1) {
-            loadTrack(currentTrackIndex + 1);
-            audio.play().catch(err => console.log('Play prevented:', err));
-        }
+        const newIndex = currentTrackIndex < playlist.length - 1
+            ? currentTrackIndex + 1
+            : 0;
+        loadTrack(newIndex);
+        audio.play().catch(err => console.log('Play prevented:', err));
     }
 
     // Toggle mute
@@ -331,13 +350,8 @@
         });
 
         audio.addEventListener('ended', () => {
-            // Auto-play next track if available
-            if (currentTrackIndex < playlist.length - 1) {
-                nextTrack();
-            } else {
-                isPlaying = false;
-                updatePlayPauseIcon();
-            }
+            // Auto-play next track (loops back to first after last)
+            nextTrack();
         });
 
         audio.addEventListener('error', (e) => {
@@ -394,6 +408,37 @@
         }, 5000); // Save every 5 seconds
 
         console.log('✅ Custom audio player initialized with 6 volume levels');
+
+        // Setup Media Session API for lock screen / notification controls
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.setActionHandler('play', () => {
+                audio.play().catch(err => console.log('Play prevented:', err));
+            });
+
+            navigator.mediaSession.setActionHandler('pause', () => {
+                audio.pause();
+            });
+
+            navigator.mediaSession.setActionHandler('previoustrack', () => {
+                previousTrack();
+            });
+
+            navigator.mediaSession.setActionHandler('nexttrack', () => {
+                nextTrack();
+            });
+
+            navigator.mediaSession.setActionHandler('seekbackward', (details) => {
+                audio.currentTime = Math.max(audio.currentTime - (details.seekOffset || 10), 0);
+            });
+
+            navigator.mediaSession.setActionHandler('seekforward', (details) => {
+                audio.currentTime = Math.min(audio.currentTime + (details.seekOffset || 10), audio.duration);
+            });
+
+            console.log('✅ Media Session API handlers registered for lock screen controls');
+        } else {
+            console.log('⚠️ Media Session API not supported in this browser');
+        }
 
         // Autoplay, with a first-gesture fallback.
         //
