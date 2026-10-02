@@ -777,3 +777,31 @@ header:not(.parmarth-style-header) .top-logo {
         display: none !important;
     }
 }
+
+/* ========================================================================
+   Redmi Note 12 landscape (~873px): fit the internal-page nav row.
+
+   Above 768px the desktop nav shows all ten items on one line with
+   white-space: nowrap. The Hindi labels just fit; the English ones
+   ("Spiritual Guides", "Stay With Us") do not, so the row overflowed the
+   document -- clipping "Home" on the left and leaving the white column
+   down the right. Trimmed here rather than wrapped, to keep the single-row
+   bar, and sized off the longer English strings so either locale fits.
+
+   Floor of 769px keeps phone-width landscape on its own rules; the 900px
+   ceiling keeps laptops untouched.
+   ======================================================================== */
+@media (min-width: 769px) and (max-width: 900px) and (orientation: landscape) {
+    header:not(.parmarth-style-header) nav .container {
+        padding: 0 1rem;
+    }
+
+    header:not(.parmarth-style-header) .nav-menu {
+        gap: 0.15rem;
+    }
+
+    header:not(.parmarth-style-header) .nav-menu > li > a {
+        padding: 0.9rem 0.3rem;
+        font-size: 0.78rem;
+    }
+}
