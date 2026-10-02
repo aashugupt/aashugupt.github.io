@@ -137,19 +137,21 @@ header:not(.parmarth-style-header) .top-logo {
    ======================================================================== */
 
 /* ========================================================================
-   Devices SMALLER than Redmi Note 12 (below 393px) - HIDE language switcher
+   Devices up to Redmi Note 9 (≤393px) - HIDE language switcher
+   Includes: Redmi 9i, Note 5 Pro (~360px), Note 9 (~393px)
+   Excludes: Redmi Note 12 (~393px) - Keep visible
    User can still change language via mobile menu
    ======================================================================== */
-@media (max-width: 390px) {
+@media (max-width: 392px) {
     .lang-switcher {
         display: none !important;
     }
 }
 
 /* ========================================================================
-   Redmi Note 12 range: 391px - 400px (show language but very compact)
+   Redmi Note 12 only: 393px - 400px (show language but very compact)
    ======================================================================== */
-@media (min-width: 391px) and (max-width: 400px) and (orientation: portrait) {
+@media (min-width: 393px) and (max-width: 400px) and (orientation: portrait) {
 
     /* Fix 1: Reduce language switcher size - very tight to prevent overlap */
     .lang-switcher {
@@ -379,8 +381,35 @@ header:not(.parmarth-style-header) .top-logo {
 
     /* Extra aggressive spacing for very small screens */
     header:not(.parmarth-style-header) .top-bar .container {
-        gap: 0.15rem !important;
-        padding: 0 0.3rem !important;
+        gap: 0.1rem !important;
+        padding: 0 0.25rem !important;
+    }
+
+    /* CRITICAL: Shrink top bar icons significantly to prevent overlap */
+    header:not(.parmarth-style-header) .contact-icon,
+    header:not(.parmarth-style-header) .social-icon {
+        width: 15px !important;
+        height: 15px !important;
+    }
+
+    header:not(.parmarth-style-header) .contact-icon svg,
+    header:not(.parmarth-style-header) .social-icon svg {
+        width: 8px !important;
+        height: 8px !important;
+    }
+
+    /* Tighten icon spacing to minimum */
+    header:not(.parmarth-style-header) .top-bar-right {
+        gap: 0.5px !important;
+        margin-right: 0 !important;
+    }
+
+    header:not(.parmarth-style-header) .social-icons {
+        gap: 0.5px !important;
+    }
+
+    header:not(.parmarth-style-header) .contact-icons {
+        gap: 0.5px !important;
     }
 
     /* Even smaller location button for very small screens */
@@ -441,19 +470,19 @@ header:not(.parmarth-style-header) .top-logo {
 
     header:not(.parmarth-style-header) .contact-icons {
         gap: 1px !important;
-        display: none !important;
+        /* Keep contact icons visible but very small */
     }
 
     header:not(.parmarth-style-header) .contact-icon,
     header:not(.parmarth-style-header) .social-icon {
-        width: 20px !important;
-        height: 20px !important;
+        width: 18px !important;
+        height: 18px !important;
     }
 
     header:not(.parmarth-style-header) .contact-icon svg,
     header:not(.parmarth-style-header) .social-icon svg {
-        width: 11px !important;
-        height: 11px !important;
+        width: 10px !important;
+        height: 10px !important;
     }
 
     header:not(.parmarth-style-header) .top-logo img {
@@ -491,9 +520,10 @@ header:not(.parmarth-style-header) .top-logo {
 }
 
 /* ========================================================================
-   Hide language switcher on small landscape devices (below Redmi Note 12)
+   Hide language switcher on small landscape devices (up to Redmi Note 9)
+   Includes: Redmi 9i, Note 5 Pro (~540px), Note 9 (~590px landscape)
    ======================================================================== */
-@media (max-width: 590px) and (orientation: landscape) {
+@media (max-width: 640px) and (orientation: landscape) {
     .lang-switcher {
         display: none !important;
     }
