@@ -2,7 +2,70 @@
  * Mobile fixes for smaller Redmi devices (Note 5 Pro, 9i, Note 9, Note 12)
  * Target: 360px - 400px CSS width
  * Ensures Motorola Edge 50 Ultra (412px+) and desktops remain unaffected
+ *
+ * Strategy: Container overflow prevention (safety net) + optimized sizes (best UX)
  */
+
+/* ========================================================================
+   UNIVERSAL OVERFLOW PREVENTION - Applies to ALL screen sizes
+   Safety net: Nothing can ever flow out of the viewport
+   ======================================================================== */
+
+/* Home page (Parmarth style) */
+.parmarth-style-header .top-bar {
+    overflow-x: hidden !important;
+}
+
+.parmarth-style-header nav {
+    overflow-x: hidden !important;
+}
+
+.parmarth-style-header .top-bar .container,
+.parmarth-style-header nav ul {
+    flex-wrap: nowrap !important;
+}
+
+/* Internal pages */
+header:not(.parmarth-style-header) .top-bar {
+    overflow-x: hidden !important;
+}
+
+header:not(.parmarth-style-header) .top-bar .container {
+    flex-wrap: nowrap !important;
+}
+
+/* Make non-critical elements shrinkable */
+header:not(.parmarth-style-header) .top-bar-left,
+header:not(.parmarth-style-header) .search-bar {
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+}
+
+header:not(.parmarth-style-header) .top-bar-right {
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+}
+
+header:not(.parmarth-style-header) .social-icons,
+header:not(.parmarth-style-header) .contact-icons {
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+}
+
+/* Keep critical elements always visible */
+header:not(.parmarth-style-header) .top-bar-center,
+header:not(.parmarth-style-header) .top-logo {
+    flex-shrink: 0 !important;
+}
+
+.lang-switcher,
+.mobile-toggle {
+    flex-shrink: 0 !important;
+}
+
+/* ========================================================================
+   END UNIVERSAL OVERFLOW PREVENTION
+   ======================================================================== */
 
 /* ========================================================================
    Redmi devices: 360px - 400px range
@@ -91,6 +154,22 @@
         width: 90%;
         max-width: 320px;
         text-align: center;
+    }
+
+    /* Fix 4b: Reduce location/map directions button */
+    .location-map a[href*="maps"],
+    section[class*="location"] a[href*="maps"] {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 0.95rem !important;
+        gap: 0.5rem !important;
+        max-width: 90% !important;
+        margin: 0 auto !important;
+    }
+
+    .location-map a[href*="maps"] svg,
+    section[class*="location"] a[href*="maps"] svg {
+        width: 20px !important;
+        height: 20px !important;
     }
 
     /* Fix 5: Adjust hero content spacing */
@@ -239,6 +318,20 @@
         gap: 0.15rem !important;
         padding: 0 0.3rem !important;
     }
+
+    /* Even smaller location button for very small screens */
+    .location-map a[href*="maps"],
+    section[class*="location"] a[href*="maps"] {
+        padding: 0.65rem 1.2rem !important;
+        font-size: 0.9rem !important;
+        gap: 0.4rem !important;
+    }
+
+    .location-map a[href*="maps"] svg,
+    section[class*="location"] a[href*="maps"] svg {
+        width: 18px !important;
+        height: 18px !important;
+    }
 }
 
 /* ========================================================================
@@ -267,58 +360,64 @@
         height: 22px !important;
     }
 
-    /* Internal pages - Aggressive spacing for landscape */
+    /* Internal pages - VERY AGGRESSIVE spacing for landscape */
     header:not(.parmarth-style-header) .top-bar .container {
-        gap: 0.3rem !important;
-        padding: 0 0.5rem !important;
+        gap: 0.2rem !important;
+        padding: 0 0.4rem !important;
     }
 
     header:not(.parmarth-style-header) .top-bar-right {
-        gap: 2px !important;
+        gap: 1px !important;
+        margin-right: 0 !important;
     }
 
     header:not(.parmarth-style-header) .social-icons {
-        gap: 2px !important;
+        gap: 1px !important;
     }
 
     header:not(.parmarth-style-header) .contact-icons {
-        gap: 2px !important;
+        gap: 1px !important;
+        display: none !important;
     }
 
     header:not(.parmarth-style-header) .contact-icon,
     header:not(.parmarth-style-header) .social-icon {
-        width: 24px !important;
-        height: 24px !important;
+        width: 20px !important;
+        height: 20px !important;
     }
 
     header:not(.parmarth-style-header) .contact-icon svg,
     header:not(.parmarth-style-header) .social-icon svg {
-        width: 12px !important;
-        height: 12px !important;
+        width: 11px !important;
+        height: 11px !important;
     }
 
     header:not(.parmarth-style-header) .top-logo img {
-        height: 55px !important;
+        height: 50px !important;
     }
 
     header:not(.parmarth-style-header) .top-logo {
-        padding: 0.2rem 0.5rem !important;
+        padding: 0.15rem 0.4rem !important;
     }
 
     header:not(.parmarth-style-header) .search-bar {
-        max-width: 180px !important;
+        max-width: 140px !important;
     }
 
     header:not(.parmarth-style-header) .search-bar input {
-        padding: 0.5rem 0.8rem !important;
-        font-size: 0.85rem !important;
+        padding: 0.4rem 0.6rem !important;
+        font-size: 0.8rem !important;
     }
 
-    /* Language switcher in landscape */
+    header:not(.parmarth-style-header) .search-bar button {
+        padding: 0.4rem 0.6rem !important;
+    }
+
+    /* Language switcher in landscape - smaller */
     .lang-switcher {
-        min-width: 2rem;
-        font-size: 0.75rem;
-        margin-left: 0.3rem;
+        min-width: 1.8rem !important;
+        font-size: 0.65rem !important;
+        margin-left: 0.2rem !important;
     }
 
     /* Hide social icons divider to save space */
@@ -334,23 +433,36 @@
 
     /* Even more aggressive for smaller landscape screens */
     header:not(.parmarth-style-header) .search-bar {
-        max-width: 150px !important;
+        max-width: 120px !important;
     }
 
     header:not(.parmarth-style-header) .top-logo img {
-        height: 48px !important;
+        height: 45px !important;
     }
 
-    header:not(.parmarth-style-header) .contact-icon,
+    header:not(.parmarth-style-header) .top-logo {
+        padding: 0.1rem 0.3rem !important;
+    }
+
     header:not(.parmarth-style-header) .social-icon {
-        width: 20px !important;
-        height: 20px !important;
+        width: 18px !important;
+        height: 18px !important;
     }
 
-    header:not(.parmarth-style-header) .contact-icon svg,
     header:not(.parmarth-style-header) .social-icon svg {
-        width: 11px !important;
-        height: 11px !important;
+        width: 10px !important;
+        height: 10px !important;
+    }
+
+    header:not(.parmarth-style-header) .top-bar .container {
+        gap: 0.15rem !important;
+        padding: 0 0.3rem !important;
+    }
+
+    .lang-switcher {
+        min-width: 1.6rem !important;
+        font-size: 0.6rem !important;
+        margin-left: 0.15rem !important;
     }
 
     /* Home page navigation - more compact */
