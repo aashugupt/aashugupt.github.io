@@ -7,6 +7,65 @@
  */
 
 /* ========================================================================
+   SERVICE CARDS FLYOUT SCROLLING - Small screens portrait & landscape
+   Enables scrolling for expanded Aarti card in service overlay
+   ======================================================================== */
+
+/* Portrait: All small devices ≤400px */
+@media (max-width: 400px) {
+    .services-quick-access {
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+        padding: 1rem 0 !important;
+    }
+
+    .services-quick-access .services-grid {
+        max-height: calc(80vh - 2rem);
+        overflow-y: auto;
+        padding-bottom: 1rem;
+    }
+
+    .aarti-modal-content {
+        max-height: 85vh !important;
+        margin: 2% auto !important;
+        width: 95% !important;
+    }
+
+    .modal-body {
+        max-height: calc(85vh - 180px) !important;
+        overflow-y: auto !important;
+        padding: 1.2rem !important;
+    }
+}
+
+/* Landscape: Small screens ≤640px */
+@media (max-width: 640px) and (orientation: landscape) {
+    .services-quick-access {
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+        padding: 0.5rem 0 !important;
+    }
+
+    .services-quick-access .services-grid {
+        max-height: calc(80vh - 1rem);
+        overflow-y: auto;
+        padding-bottom: 0.5rem;
+    }
+
+    .aarti-modal-content {
+        max-height: 90vh !important;
+        margin: 1% auto !important;
+        width: 95% !important;
+    }
+
+    .modal-body {
+        max-height: calc(90vh - 150px) !important;
+        overflow-y: auto !important;
+        padding: 1rem !important;
+    }
+}
+
+/* ========================================================================
    UNIVERSAL OVERFLOW PREVENTION - Applies to ALL screen sizes
    Safety net: Nothing can ever flow out of the viewport
    ======================================================================== */
@@ -212,34 +271,13 @@ header:not(.parmarth-style-header) .top-logo {
         padding: 0 1rem;
     }
 
-    /* Fix 7: Flyout service cards overlay - add max-height and scroll */
-    .services-quick-access {
-        max-height: 80vh !important;
-        overflow-y: auto !important;
-        padding: 1rem 0 !important;
-    }
-
+    /* Fix 7: Service cards grid layout (scrolling now in universal section) */
     .services-quick-access .services-grid {
-        max-height: calc(80vh - 2rem);
-        overflow-y: auto;
-        padding-bottom: 1rem;
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
         gap: 0.8rem !important;
     }
 
-    /* Fix 7b: Aarti modal - make scrollable on small screens */
-    .aarti-modal-content {
-        max-height: 85vh !important;
-        margin: 2% auto !important;
-        width: 95% !important;
-    }
-
-    .modal-body {
-        max-height: calc(85vh - 180px) !important;
-        overflow-y: auto !important;
-        padding: 1.2rem !important;
-    }
-
+    /* Fix 7b: Aarti modal header sizing (scrolling now in universal section) */
     .modal-header {
         padding: 1.2rem !important;
     }
