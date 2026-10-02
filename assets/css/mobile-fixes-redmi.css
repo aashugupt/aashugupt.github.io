@@ -37,9 +37,8 @@
         padding: 1.2rem !important;
     }
 }
-
-/* Landscape: Small screens ≤640px */
-@media (max-width: 640px) and (orientation: landscape) {
+/* Landscape: small phones (Note 5 Pro, 9i, Note 9 all land under 768px) */
+@media (max-width: 768px) and (orientation: landscape) {
     .services-quick-access {
         max-height: 80vh !important;
         overflow-y: auto !important;
@@ -521,9 +520,9 @@ header:not(.parmarth-style-header) .top-logo {
 
 /* ========================================================================
    Hide language switcher on small landscape devices (up to Redmi Note 9)
-   Includes: Redmi 9i, Note 5 Pro (~540px), Note 9 (~590px landscape)
+   Covers Redmi 9i, Note 5 Pro and Note 9; Note 12 landscape is wider and keeps it.
    ======================================================================== */
-@media (max-width: 640px) and (orientation: landscape) {
+@media (max-width: 768px) and (orientation: landscape) {
     .lang-switcher {
         display: none !important;
     }
@@ -609,55 +608,65 @@ header:not(.parmarth-style-header) .top-logo {
 }
 
 /* ========================================================================
-   FIX 1: Landscape Internal Page - Hide white line & fit all icons
-   For devices below Redmi Note 12 in landscape (≤640px)
+   FIX 1: Landscape internal pages on small phones (Note 5 Pro, 9i, Note 9)
+
+   style.css hides .social-icons at max-width:768px and only restores them --
+   plus repaints the white nav row -- inside an (orientation: portrait) block.
+   Landscape therefore lost the social icons and kept nav's white background,
+   which showed as an empty white band under the header. Mirror both here.
+
+   Bounded at 768px: Motorola Edge 50 Ultra landscape is wider, so unaffected.
    ======================================================================== */
-@media (max-width: 640px) and (orientation: landscape) {
-    
-    /* CRITICAL: Hide top-info-bar to remove white line */
-    header:not(.parmarth-style-header) .top-info-bar {
-        display: none !important;
+@media (max-width: 768px) and (orientation: landscape) {
+
+    header:not(.parmarth-style-header) nav {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        box-shadow: none;
     }
-    
-    /* Make icons MUCH smaller to fit all of them */
+
+    header:not(.parmarth-style-header) nav .container {
+        padding: 0.4rem 0.85rem;
+    }
+
+    header:not(.parmarth-style-header) .social-icons {
+        display: flex !important;
+        gap: 2px !important;
+    }
+
+    header:not(.parmarth-style-header) .contact-icons {
+        gap: 2px !important;
+    }
+
     header:not(.parmarth-style-header) .contact-icon,
     header:not(.parmarth-style-header) .social-icon {
-        width: 14px !important;
-        height: 14px !important;
+        width: 20px !important;
+        height: 20px !important;
+        flex: 0 0 auto !important;
     }
-    
+
     header:not(.parmarth-style-header) .contact-icon svg,
     header:not(.parmarth-style-header) .social-icon svg {
-        width: 8px !important;
-        height: 8px !important;
+        width: 11px !important;
+        height: 11px !important;
     }
-    
-    /* Ultra-tight spacing */
-    header:not(.parmarth-style-header) .top-bar-right {
-        gap: 0.5px !important;
+
+    header:not(.parmarth-style-header) .social-icons-divider {
+        display: inline-block !important;
+        height: 15px !important;
+        margin: 0 0.25rem !important;
     }
-    
-    header:not(.parmarth-style-header) .social-icons {
-        gap: 0.5px !important;
-    }
-    
-    header:not(.parmarth-style-header) .contact-icons {
-        gap: 0.5px !important;
-    }
-    
-    /* Reduce search bar more */
+
     header:not(.parmarth-style-header) .search-bar {
-        max-width: 100px !important;
+        max-width: 180px !important;
     }
-    
+
     header:not(.parmarth-style-header) .search-bar input {
-        padding: 0.3rem 0.5rem !important;
-        font-size: 0.75rem !important;
+        padding: 0.4rem 0.7rem !important;
+        font-size: 0.8rem !important;
     }
-    
-    /* Smaller logo */
+
     header:not(.parmarth-style-header) .top-logo img {
-        height: 45px !important;
+        height: 48px !important;
     }
 }
 
@@ -699,7 +708,7 @@ header:not(.parmarth-style-header) .top-logo {
 }
 
 /* Landscape - Small devices */
-@media (max-width: 640px) and (orientation: landscape) {
+@media (max-width: 768px) and (orientation: landscape) {
     #aartiCard.locked-expanded .aarti-expanded-content {
         max-height: 180px !important;  /* Even smaller in landscape */
         overflow-y: auto !important;
