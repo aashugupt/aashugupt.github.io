@@ -755,19 +755,18 @@ header:not(.parmarth-style-header) .top-logo {
 }
 
 /* ========================================================================
-   Redmi Note 12 portrait: hide the language chip on internal pages, where
-   it lands between the Twitter and YouTube icons and crowds them.
+   Phone portrait: hide the language chip on internal pages, where it lands
+   between the Twitter and YouTube icons and crowds them.
 
-   Deliberately NOT paired with a forced locale in i18n.js. The chip is the
-   only way to switch language -- the mobile menu has none -- and it stays
-   visible on this device in landscape, so a choice made there has to
-   survive the rotation, which means portrait keeps reading localStorage.
-   Forcing is reserved for <=392px, where the chip is hidden in every
-   orientation and a stale 'en' would otherwise strand the user.
-
+   No lower bound, so it applies whether a device reports 360px or 393px --
+   Note 12 was still showing the chip when this was bounded at 393px.
    Ceiling is 411px: Motorola Edge 50 Ultra portrait is 412px and keeps it.
+
+   Hiding the chip never changes which locale loads: i18n.js always reads
+   the cached value, so a choice made where the chip IS reachable survives
+   everywhere it is not.
    ======================================================================== */
-@media (min-width: 393px) and (max-width: 411px) and (orientation: portrait) {
+@media (max-width: 411px) and (orientation: portrait) {
     header:not(.parmarth-style-header) .lang-switcher {
         display: none !important;
     }

@@ -19,16 +19,13 @@
     var BASE        = 'assets/locales/';
     var SWITCHER_CSS = 'assets/css/lang-switcher.css?v=1';
 
-    // Force Hindi on small devices where language switcher is hidden (≤392px)
-    // User cannot change language when switcher is hidden, so enforce default
-    var isSmallDevice = window.innerWidth <= 392;
-    var current = isSmallDevice ? DEFAULT : (localStorage.getItem(STORAGE_KEY) || DEFAULT);
+    // The stored choice always wins, on every screen size. CSS hides the
+    // switcher on narrow layouts where it crowds the top bar, but hiding the
+    // control must not change which locale loads -- a choice made where the
+    // chip is reachable has to survive on the screens where it is not.
+    // DEFAULT applies only when nothing has been stored yet.
+    var current = localStorage.getItem(STORAGE_KEY) || DEFAULT;
     if (SUPPORTED.indexOf(current) === -1) current = DEFAULT;
-    
-    // Clear localStorage on small devices to prevent English from sticking
-    if (isSmallDevice && localStorage.getItem(STORAGE_KEY) !== DEFAULT) {
-        localStorage.setItem(STORAGE_KEY, DEFAULT);
-    }
 
     var strings = {};
 
