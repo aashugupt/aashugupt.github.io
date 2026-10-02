@@ -19,6 +19,11 @@
     var BASE        = 'assets/locales/';
     var SWITCHER_CSS = 'assets/css/lang-switcher.css?v=1';
 
+    // The stored choice always wins, on every screen size. CSS hides the
+    // switcher on narrow layouts where it crowds the top bar, but hiding the
+    // control must not change which locale loads -- a choice made where the
+    // chip is reachable has to survive on the screens where it is not.
+    // DEFAULT applies only when nothing has been stored yet.
     var current = localStorage.getItem(STORAGE_KEY) || DEFAULT;
     if (SUPPORTED.indexOf(current) === -1) current = DEFAULT;
 

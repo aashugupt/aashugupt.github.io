@@ -10,7 +10,9 @@
         var logo = document.querySelector('.central-logo');
         var panel = document.querySelector('.services-quick-access');
         var aarti = document.getElementById('aartiCard');
-        var canHover = window.matchMedia('(hover: hover)').matches;
+        // Check both hover capability AND screen width
+        // Small screens (≤768px) always get mobile version, even if they report hover support
+        var canHover = window.matchMedia('(hover: hover)').matches && window.matchMedia('(min-width: 769px)').matches;
 
         function open() {
             if (panel) panel.classList.add('is-open');
