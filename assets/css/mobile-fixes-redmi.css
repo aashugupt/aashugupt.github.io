@@ -607,3 +607,143 @@ header:not(.parmarth-style-header) .top-logo {
         pointer-events: none !important;  /* Let clicks pass through to parent */
     }
 }
+
+/* ========================================================================
+   FIX 1: Landscape Internal Page - Hide white line & fit all icons
+   For devices below Redmi Note 12 in landscape (≤640px)
+   ======================================================================== */
+@media (max-width: 640px) and (orientation: landscape) {
+    
+    /* CRITICAL: Hide top-info-bar to remove white line */
+    header:not(.parmarth-style-header) .top-info-bar {
+        display: none !important;
+    }
+    
+    /* Make icons MUCH smaller to fit all of them */
+    header:not(.parmarth-style-header) .contact-icon,
+    header:not(.parmarth-style-header) .social-icon {
+        width: 14px !important;
+        height: 14px !important;
+    }
+    
+    header:not(.parmarth-style-header) .contact-icon svg,
+    header:not(.parmarth-style-header) .social-icon svg {
+        width: 8px !important;
+        height: 8px !important;
+    }
+    
+    /* Ultra-tight spacing */
+    header:not(.parmarth-style-header) .top-bar-right {
+        gap: 0.5px !important;
+    }
+    
+    header:not(.parmarth-style-header) .social-icons {
+        gap: 0.5px !important;
+    }
+    
+    header:not(.parmarth-style-header) .contact-icons {
+        gap: 0.5px !important;
+    }
+    
+    /* Reduce search bar more */
+    header:not(.parmarth-style-header) .search-bar {
+        max-width: 100px !important;
+    }
+    
+    header:not(.parmarth-style-header) .search-bar input {
+        padding: 0.3rem 0.5rem !important;
+        font-size: 0.75rem !important;
+    }
+    
+    /* Smaller logo */
+    header:not(.parmarth-style-header) .top-logo img {
+        height: 45px !important;
+    }
+}
+
+/* ========================================================================
+   FIX 2: Aarti Card Expansion - Make scrollable & show all entries
+   Prevent "Pre-Sleep" entry from being cut off
+   ======================================================================== */
+
+/* Portrait - Small devices */
+@media (max-width: 400px) {
+    #aartiCard.locked-expanded .aarti-expanded-content {
+        max-height: 220px !important;  /* Reduced from 400px */
+        overflow-y: auto !important;    /* Enable scrolling */
+        overflow-x: hidden;
+        padding-right: 0.3rem;
+        /* Smooth scrolling */
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    /* Compact time slots */
+    #aartiCard .aarti-time-slot {
+        padding: 0.4rem !important;
+        gap: 0.5rem !important;
+        margin-bottom: 0.4rem !important;
+    }
+    
+    #aartiCard .aarti-time-slot .time-icon {
+        font-size: 1rem !important;
+    }
+    
+    #aartiCard .aarti-time-slot .time-details strong {
+        font-size: 0.7rem !important;
+    }
+    
+    #aartiCard .aarti-time-slot .time-details span {
+        font-size: 0.62rem !important;
+    }
+}
+
+/* Landscape - Small devices */
+@media (max-width: 640px) and (orientation: landscape) {
+    #aartiCard.locked-expanded .aarti-expanded-content {
+        max-height: 180px !important;  /* Even smaller in landscape */
+        overflow-y: auto !important;
+        overflow-x: hidden;
+        padding-right: 0.3rem;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    
+    /* Very compact time slots in landscape */
+    #aartiCard .aarti-time-slot {
+        padding: 0.3rem !important;
+        gap: 0.4rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+    
+    #aartiCard .aarti-time-slot .time-icon {
+        font-size: 0.9rem !important;
+    }
+    
+    #aartiCard .aarti-time-slot .time-details strong {
+        font-size: 0.65rem !important;
+    }
+    
+    #aartiCard .aarti-time-slot .time-details span {
+        font-size: 0.58rem !important;
+    }
+}
+
+/* Add scrollbar styling for Aarti expanded content */
+#aartiCard.locked-expanded .aarti-expanded-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+#aartiCard.locked-expanded .aarti-expanded-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+}
+
+#aartiCard.locked-expanded .aarti-expanded-content::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.5);
+    border-radius: 2px;
+}
+
+#aartiCard.locked-expanded .aarti-expanded-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.8);
+}
