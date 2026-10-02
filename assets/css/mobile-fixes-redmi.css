@@ -11,18 +11,28 @@
    Safety net: Nothing can ever flow out of the viewport
    ======================================================================== */
 
-/* Home page (Parmarth style) */
-.parmarth-style-header .top-bar {
-    overflow-x: hidden !important;
+/* Home page (Parmarth style) - Only hide overflow on portrait, not landscape */
+@media (orientation: portrait) {
+    .parmarth-style-header .top-bar {
+        overflow-x: hidden !important;
+    }
+
+    .parmarth-style-header nav {
+        overflow-x: hidden !important;
+    }
+
+    .parmarth-style-header .top-bar .container,
+    .parmarth-style-header nav ul {
+        flex-wrap: nowrap !important;
+    }
 }
 
-.parmarth-style-header nav {
-    overflow-x: hidden !important;
-}
-
-.parmarth-style-header .top-bar .container,
-.parmarth-style-header nav ul {
-    flex-wrap: nowrap !important;
+/* In landscape, allow wrapping for home page navigation */
+@media (orientation: landscape) and (max-width: 768px) {
+    .parmarth-style-header nav ul {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
 }
 
 /* Internal pages */
@@ -68,15 +78,26 @@ header:not(.parmarth-style-header) .top-logo {
    ======================================================================== */
 
 /* ========================================================================
-   Redmi devices: 360px - 400px range
+   Devices SMALLER than Redmi Note 12 (below 393px) - HIDE language switcher
+   User can still change language via mobile menu
    ======================================================================== */
-@media (max-width: 400px) and (orientation: portrait) {
-
-    /* Fix 1: Reduce language switcher size to match other icons */
+@media (max-width: 390px) {
     .lang-switcher {
-        min-width: 1.8rem;
-        font-size: 0.65rem;
-        margin-left: 0.25rem;
+        display: none !important;
+    }
+}
+
+/* ========================================================================
+   Redmi Note 12 range: 391px - 400px (show language but very compact)
+   ======================================================================== */
+@media (min-width: 391px) and (max-width: 400px) and (orientation: portrait) {
+
+    /* Fix 1: Reduce language switcher size - very tight to prevent overlap */
+    .lang-switcher {
+        min-width: 1.6rem !important;
+        font-size: 0.6rem !important;
+        margin-left: 0.15rem !important;
+        margin-right: 0.15rem !important;
     }
 
     .lang-chip {
@@ -90,6 +111,11 @@ header:not(.parmarth-style-header) .top-logo {
     .lang-opt {
         font-size: 0.7rem;
         padding: 0.35rem 0.6rem;
+    }
+
+    /* Extra tight spacing to prevent language/YouTube overlap */
+    header:not(.parmarth-style-header) .top-bar-right {
+        gap: 0.5px !important;
     }
 
     /* Fix 2: Further reduce top bar icon sizes for very small screens */
@@ -422,6 +448,15 @@ header:not(.parmarth-style-header) .top-logo {
 
     /* Hide social icons divider to save space */
     header:not(.parmarth-style-header) .social-icons-divider {
+        display: none !important;
+    }
+}
+
+/* ========================================================================
+   Hide language switcher on small landscape devices (below Redmi Note 12)
+   ======================================================================== */
+@media (max-width: 590px) and (orientation: landscape) {
+    .lang-switcher {
         display: none !important;
     }
 }
